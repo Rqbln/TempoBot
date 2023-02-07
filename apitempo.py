@@ -15,8 +15,7 @@ def ChoisirJour():
         print("Le jour est bleu")
     elif "TEMPO_BLANC"==couleur:
         print("Le jour est blanc")
-    elif "NON_DEFINI"==couleur:
+    else:
         print("Le jour n'est pas connu.\nVous avez sûrement défini une date antérieure au début de Tempo, ou la date est supérieure à J+2")
-
 
 
