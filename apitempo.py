@@ -63,6 +63,6 @@ def tasmotaAPI():
                 response = requests.get(f"http://{ip}/cm?cmnd={commandON}")
                 print(response.text)
         else:
-            print("Impossible de récupérer l'état de la prise.")
+            print("La prise est connectée, mais impossible de récupérer son état.")
     except requests.exceptions.RequestException as e:
-        print("La prise est indisponible.")
+        print("La prise n'est pas connectée.")
