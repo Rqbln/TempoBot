@@ -45,16 +45,14 @@ def configPrise():
         print("Heures pleines :", "ON" if heures[i][0] == "1" else "OFF")
         print("Heures creuses :", "ON" if heures[i][1] == "1" else "OFF")
 
-config()
-
 def tasmotaAPI():
-    ip ="entrer ip"
+    ip ="Entrez l'ip de la prise :"
     commandON="Power1"
     commandOFF="Power0"
     url="http://{ip}/cm?cmnd=Status%200"
 
     try:
-        response = requests.get(status_url, timeout=5)
+        response = requests.get(url, timeout=5)
         status = response.json()
         if "POWER" in status:
             state = status["POWER"]
