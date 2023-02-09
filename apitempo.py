@@ -58,3 +58,25 @@ def config():
         print("éteintre")
 
 config()
+
+def apitasmota():
+    ip ="entrer ip"
+    commandON="Power1"
+    commandOFF="Power0"
+    url="http://{ip}/cm?cmnd=Status%200"
+
+    try:
+        response = requests.get(status_url, timeout=5)
+        status = response.json()
+        if "POWER" in status:
+            state = status["POWER"]
+            if state == "ON":
+                response = requests.get(f"http://{ip}/cm?cmnd={commandOFF}")
+                print(response.text)
+            elif (state == "OFF"):
+                response = requests.get(f"http://{ip}/cm?cmnd={commandON}")
+                print(response.text)
+        else:
+            print("Impossible de récupérer l'état de la prise.")
+    except requests.exceptions.RequestException as e:
+        print("La prise est indisponible.")
