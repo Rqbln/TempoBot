@@ -19,64 +19,31 @@ def ChoisirJour():
         print("Le jour n'est pas connu.\nVous avez sûrement défini une date antérieure au début de Tempo, ou la date est supérieure à J+2")
 
 
-def config():
-    REDP=input("CONFIGURATION POUR LES JOURS ROUGES HEURES PLEINES (on or off)\n")
-    if "on"==REDP:
-        print('allumer')
-    elif"off"==REDP:
-        print("éteintre")
+def configPrise():
+    heures=[[0, 0],[0, 0],[0, 0]]
+    couleurs=["rouges","blancs","bleus"]
+    print("Configuration de la prise connectée (1 pour On, 2 pour Off)")
+    for i in range (3):
 
-    REDC = input("CONFIGURATION POUR LES JOURS ROUGES HEURES CREUSES (on or off)\n")
-    if "on" == REDC:
-        print('allumer')
-    elif "off" == REDC:
-        print("éteintre")
+        print("Jours",couleurs[i])
+        heures[i][0]=input("Heures pleines :")
+        if "1"==heures[i][0]:
+            print("ON")
+        elif"0"==heures[i][0]:
+            print("OFF")
 
-    WHITEP=input("CONFIGURATION POUR LES JOURS BLANCS HEURES PLEINES (on or off)\n")
-    if "on"==WHITEP:
-        print('allumer')
-    elif"off"==WHITEP:
-        print("éteintre")
-
-    WHITEC = input("CONFIGURATION POUR LES JOURS BLANCS HEURES CREUSES (on or off)\n")
-    if "on" == WHITEC:
-        print('allumer')
-    elif "off" == WHITEC:
-        print("éteintre")
+        heures[i][1] = input("Heures creuses :")
+        if "1" == heures[i][1]:
+            print("ON")
+        elif "0" == heures[i][1]:
+            print("OFF")
 
 
-    BLUEP=input("CONFIGURATION POUR LES JOURS BLEUS HEURES PLEINES (on or off)\n")
-    if "on"==BLUEP:
-        print('allumer')
-    elif"off"==BLUEP:
-        print("éteintre")
-
-    BLUEP = input("CONFIGURATION POUR LES JOURS BLEUS HEURES CREUSES (on or off)\n")
-    if "on" == BLUEP:
-        print('allumer')
-    elif "off" == BLUEP:
-        print("éteintre")
+    print("\nRésumé :")
+    for i in range(3):
+        print("Jours", couleurs[i], ":")
+        print("Heures pleines :", "ON" if heures[i][0] == "1" else "OFF")
+        print("Heures creuses :", "ON" if heures[i][1] == "1" else "OFF")
 
 config()
 
-def apitasmota():
-    ip ="entrer ip"
-    commandON="Power1"
-    commandOFF="Power0"
-    url="http://{ip}/cm?cmnd=Status%200"
-
-    try:
-        response = requests.get(status_url, timeout=5)
-        status = response.json()
-        if "POWER" in status:
-            state = status["POWER"]
-            if state == "ON":
-                response = requests.get(f"http://{ip}/cm?cmnd={commandOFF}")
-                print(response.text)
-            elif (state == "OFF"):
-                response = requests.get(f"http://{ip}/cm?cmnd={commandON}")
-                print(response.text)
-        else:
-            print("Impossible de récupérer l'état de la prise.")
-    except requests.exceptions.RequestException as e:
-        print("La prise est indisponible.")
