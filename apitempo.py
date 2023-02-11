@@ -1,4 +1,12 @@
 import requests
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import db
+cred = credentials.Certificate("D:\GITHUB\TempoBot\tempobot-406fc-firebase-adminsdk-o6bkq-a1ab9cdc76.json")
+firebase_admin.initialize_app(cred)
+
+
+ref = db.reference("/data")
 
 def ChoisirJour():
     Annee = int(input("Année : "))
@@ -17,6 +25,11 @@ def ChoisirJour():
         print("Le jour est blanc")
     else:
         print("Le jour n'est pas connu.\nVous avez sûrement défini une date antérieure au début de Tempo, ou la date est supérieure à J+2")
+    data = {"couleur": couleur}
+    ref.set(data)
+
+
+ChoisirJour()
 
 
 def configPrise():
