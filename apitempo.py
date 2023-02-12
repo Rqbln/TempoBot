@@ -16,7 +16,7 @@ def ChoisirJour():
 
     now = datetime.datetime.now()
 
-    weekday_dict = {
+    semaine_dico = {
         0: "Lundi",
         1: "Mardi",
         2: "Mercredi",
@@ -26,14 +26,14 @@ def ChoisirJour():
         6: "Dimanche"
     }
 
-    weekday = weekday_dict[now.weekday()]
+    jourSemaine = semaine_dico[now.weekday()]
 
-    date = "{} {:%d-%m-%Y}".format(weekday, now)
+    date = "{} {:%d-%m-%Y}".format(jourSemaine, now)
 
-    parts = date.split("-")
-    Annee = parts[-1]
-    Mois = parts[-2]
-    Jour = parts[0].split(" ")[-1]
+    parties = date.split("-")
+    Annee = parties[-1]
+    Mois = parties[-2]
+    Jour = parties[0].split(" ")[-1]
 
     url = "https://particulier.edf.fr/services/rest/referentiel/searchTempoStore?dateRelevant={}-{}-{}".format(Annee,Mois,Jour)
 
