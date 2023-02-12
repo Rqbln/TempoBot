@@ -1,5 +1,9 @@
-import os
-if os.path.exists(r"C:\Users\yann_\Downloads\tempobot-406fc-firebase-adminsdk-o6bkq-a1ab9cdc76.json"):
-    print("Le fichier existe")
-else:
-    print("Le fichier n'existe pas")
+import datetime
+
+# pour récupérer la date actuelle
+date = datetime.date.today()
+print("Date :", date)
+
+# pour récupérer l'heure actuelle
+heure = datetime.datetime.now()
+print("Heure :", heure)

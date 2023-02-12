@@ -2,6 +2,7 @@ import requests
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
+import datetime
 cred = credentials.Certificate("tempobot-406fc-firebase-adminsdk-o6bkq-a1ab9cdc76.json")
 firebase_admin.initialize_app(cred, {
     'databaseURL': 'https://tempobot-406fc-default-rtdb.europe-west1.firebasedatabase.app/'
@@ -10,9 +11,14 @@ firebase_admin.initialize_app(cred, {
 ref = db.reference("/data")
 
 def ChoisirJour():
-    Annee = int(input("Année : "))
-    Mois = int(input("Mois : "))
-    Jour = int(input("Jour : "))
+    date = datetime.date.today()
+    Annee = date.year
+    Mois = date.month
+    Jour = date.day
+
+    #Annee = int(input("Année : "))
+    #Mois = int(input("Mois : "))
+    #Jour = int(input("Jour : "))
 
     url = "https://particulier.edf.fr/services/rest/referentiel/searchTempoStore?dateRelevant={}-{}-{}".format(Annee,Mois,Jour)
 
@@ -27,7 +33,8 @@ def ChoisirJour():
         print("Le jour est blanc")
     else:
         print("Le jour n'est pas connu.\nVous avez sûrement défini une date antérieure au début de Tempo, ou la date est supérieure à J+2")
-    data = {"couleurJ": couleurJ,"couleurJ1": couleurJ1}
+    heure = str(datetime.datetime.now())
+    data = {"couleurJ": couleurJ,"couleurJ1": couleurJ1,"Date": heure}
     ref.set(data)
 
 
