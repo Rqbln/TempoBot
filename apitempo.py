@@ -4,6 +4,12 @@ from firebase_admin import credentials
 from firebase_admin import db
 import datetime
 
+import schedule
+import time
+
+
+
+
 cred = credentials.Certificate("tempobot-406fc-firebase-adminsdk-o6bkq-a1ab9cdc76.json")
 firebase_admin.initialize_app(cred, {
     'databaseURL': 'https://tempobot-406fc-default-rtdb.europe-west1.firebasedatabase.app/'
@@ -54,6 +60,15 @@ def ChoisirJour():
     data = {"couleurJ": couleurJ, "couleurJ1": couleurJ1, "Date": date}
     ref.set(data)
 
+
+
+ChoisirJour()
+
+schedule.every().day.at("22:00").do(ChoisirJour)
+
+while True:
+    schedule.run_pending()
+    time.sleep(1)
 
 def configPrise():
     heures = [[0, 0], [0, 0], [0, 0]]
@@ -106,4 +121,3 @@ def tasmotaAPI():
 
 if __name__ == "__main__":
 
-    ChoisirJour()
