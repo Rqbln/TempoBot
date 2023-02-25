@@ -117,10 +117,14 @@ def main():
         heure_actuelle = now.tm_hour
         minute_actuelle = now.tm_min
 
+
+
         if int(heures[0][0]) == 1 and int(heures[0][1]) == 1:
             if (heure_actuelle >= 6 and heure_actuelle < 22) or (heure_actuelle == 22 and minute_actuelle == 0):
+                print("Heures : pleines")
                 set_power("ON")
             else:
+                print("Heures : creuses")
                 set_power("OFF")
         elif int(heures[0][0]) == 1 and int(heures[0][1]) == 0:
             if heure_actuelle >= 6:
@@ -129,8 +133,10 @@ def main():
                 set_power("OFF")
         elif int(heures[0][0]) == 0 and int(heures[0][1]) == 1:
             if heure_actuelle < 6 or (heure_actuelle == 22 and minute_actuelle == 0) or heure_actuelle >= 22:
+                print("Heures : creuses")
                 set_power("ON")
             else:
+                print("Heures : pleines")
                 set_power("OFF")
         else:
             set_power("OFF")
