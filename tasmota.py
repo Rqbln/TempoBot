@@ -95,13 +95,13 @@ def main():
     while True:
         color = get_tempo_color()
         if color == "TEMPO_ROUGE":
-            print("/n/nCouleur : rouge")
+            print("\n\nCouleur : rouge")
             heures = heures_rouges
         elif color == "TEMPO_BLANC":
-            print("/n/nCouleur : blanc")
+            print("\n\nCouleur : blanc")
             heures = heures_blanches
         elif color == "TEMPO_BLEU":
-            print("/n/nCouleur : bleu")
+            print("\n\nCouleur : bleu")
             heures = heures_bleues
         else:
             wait_for_new_day()
