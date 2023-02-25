@@ -68,6 +68,7 @@ def main():
     heures_blanches = [[0, 0], [0, 0]]
     heures_bleues = [[0, 0], [0, 0]]
     heures = None
+    os.system("clear")
     couleurs = ["rouge", "blanc", "bleu"]
     print("Configuration de la prise connectée (1 pour On, 0 pour Off)")
     for i in range(3):
@@ -97,6 +98,7 @@ def main():
     next_color_check = time.time()
 
     while True:
+        os.system("cls")
         color = get_tempo_color()
         if color == "TEMPO_ROUGE":
             print("\n\nCouleur : rouge")
@@ -134,8 +136,10 @@ def main():
             set_power("OFF")
 
         # Afficher l'heure
-        os.system("clear")
+
         print("Heure : {}:{}:{}".format(now.tm_hour, now.tm_min, now.tm_sec))
+        time.sleep(5)
+        os.system("clear")
 
         # Calculer le temps restant avant la prochaine vérification de la couleur
         time_left = next_color_check - time.time()
@@ -144,13 +148,13 @@ def main():
             while True:
                 color = get_tempo_color()
                 if color == "TEMPO_ROUGE":
-                    print("\n\nCouleur : rouge")
+                    print("Couleur : rouge")
                     heures = heures_rouges
                 elif color == "TEMPO_BLANC":
-                    print("\n\nCouleur : blanc")
+                    print("Couleur : blanc")
                     heures = heures_blanches
                 elif color == "TEMPO_BLEU":
-                    print("\n\nCouleur : bleu")
+                    print("Couleur : bleu")
                     heures = heures_bleues
                 else:
                     wait_for_new_day()
@@ -179,6 +183,7 @@ def main():
                     set_power("OFF")
 
                 next_check = datetime.datetime.now
+
 
 
 if __name__ == "__main__":
