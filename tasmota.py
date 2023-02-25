@@ -25,22 +25,112 @@ def get_tempo_color():
     response = requests.get(url).json()
     return response["couleurJourJ"]
 
-def wait_for_red_day_end():
+def wait_for_new_day():
     while True:
         color = get_tempo_color()
-        if color != "TEMPO_ROUGE":
+        if color != "TEMPO_BLANC" and color != "TEMPO_BLEU" and color != "TEMPO_ROUGE":
+            time.sleep(60)
+        else:
             break
-        time.sleep(60)
+
+"""
+def configPrise():
+    heures = [[0, 0], [0, 0], [0, 0]]
+    couleurs = ["rouge", "blanc", "bleu"]
+    print("Configuration de la prise connectée (1 pour On, 0 pour Off)")
+    for i in range(3):
+
+        print("\nCouleur :", couleurs[i])
+        heures[i][0] = input("Heures pleines : ")
+        if "1" == heures[i][0]:
+            print("ON")
+        elif "0" == heures[i][0]:
+            print("OFF")
+
+        heures[i][1] = input("Heures creuses : ")
+        if "1" == heures[i][1]:
+            print("ON")
+        elif "0" == heures[i][1]:
+            print("OFF")
+
+    print("\nRésumé :")
+    for i in range(3):
+        print("Jours", couleurs[i], ":")
+        print("Heures pleines :", "ON" if heures[i][0] == "1" else "OFF")
+        print("Heures creuses :", "ON" if heures[i][1] == "1" else "OFF")
+"""
 
 def main():
+    heures_rouges = [[0, 0], [0, 0]]
+    heures_blanches = [[0, 0], [0, 0]]
+    heures_bleues = [[0, 0], [0, 0]]
+    heures = None
+    couleurs = ["rouge", "blanc", "bleu"]
+    print("Configuration de la prise connectée (1 pour On, 0 pour Off)")
+    for i in range(3):
+        print("\nCouleur :", couleurs[i])
+        if i == 0:
+            heures = heures_rouges
+        elif i == 1:
+            heures = heures_blanches
+        else:
+            heures = heures_bleues
+
+        heures[0][0] = input("Heures pleines : ")
+        heures[0][1] = input("Heures creuses : ")
+
+    print("\nRésumé :")
+    for i in range(3):
+        print("Jours", couleurs[i], ":")
+        if i == 0:
+            heures = heures_rouges
+        elif i == 1:
+            heures = heures_blanches
+        else:
+            heures = heures_bleues
+        print("Heures pleines :", "ON" if heures[0][0] == "1" else "OFF")
+        print("Heures creuses :", "ON" if heures[0][1] == "1" else "OFF")
+
+
     while True:
         color = get_tempo_color()
         if color == "TEMPO_ROUGE":
-            set_power("OFF")
-            wait_for_red_day_end()
-            set_power("ON")
+            print("/n/nCouleur : rouge")
+            heures = heures_rouges
+        elif color == "TEMPO_BLANC":
+            print("/n/nCouleur : blanc")
+            heures = heures_blanches
+        elif color == "TEMPO_BLEU":
+            print("/n/nCouleur : bleu")
+            heures = heures_bleues
         else:
-            time.sleep(60)
+            wait_for_new_day()
+            continue
+
+        now = time.localtime()
+        heure_actuelle = now.tm_hour
+        minute_actuelle = now.tm_min
+
+        if int(heures[0][0]) == 1 and int(heures[0][1]) == 1:
+            if (heure_actuelle >= 6 and heure_actuelle < 22) or (heure_actuelle == 22 and minute_actuelle == 0):
+                set_power("ON")
+            else:
+                set_power("OFF")
+        elif int(heures[0][0]) == 1 and int(heures[0][1]) == 0:
+            if heure_actuelle >= 6:
+                set_power("ON")
+            else:
+                set_power("OFF")
+        elif int(heures[0][0]) == 0 and int(heures[0][1]) == 1:
+            if heure_actuelle < 6 or (heure_actuelle == 22 and minute_actuelle == 0) or heure_actuelle >= 22:
+                set_power("ON")
+            else:
+                set_power("OFF")
+        else:
+            set_power("OFF")
+
+        time.sleep(60)
 
 if __name__ == "__main__":
     main()
+
