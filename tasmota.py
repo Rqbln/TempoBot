@@ -2,8 +2,8 @@ import requests
 import time
 
 ip = "192.168.1.70"  # remplacer par l'adresse IP de votre prise Tasmota
-command_on = "Power1"
-command_off = "Power0"
+command_on = "Power%20on"
+command_off = "Power%20off"
 
 def set_power(status):
     if status == "ON":
