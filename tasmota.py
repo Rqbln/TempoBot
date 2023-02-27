@@ -3,6 +3,18 @@ import datetime
 import time
 import os
 
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import db
+
+cred = credentials.Certificate("tempobot-406fc-firebase-adminsdk-o6bkq-a1ab9cdc76.json")
+firebase_admin.initialize_app(cred, {
+    'databaseURL': 'https://tempobot-406fc-default-rtdb.europe-west1.firebasedatabase.app/'
+})
+
+ref = db.reference("/data")
+
+
 ip = "192.168.1.70"  # remplacer par l'adresse IP de votre prise Tasmota
 command_on = "Power%20on"
 command_off = "Power%20off"
@@ -26,6 +38,12 @@ def get_tempo_color():
     url = f"https://particulier.edf.fr/services/rest/referentiel/searchTempoStore?dateRelevant={now.tm_year}-{now.tm_mon}-{now.tm_mday}"
     response = requests.get(url).json()
     return response["couleurJourJ"]
+
+def get_tempo_colorJ1():
+    now = time.localtime()
+    url = f"https://particulier.edf.fr/services/rest/referentiel/searchTempoStore?dateRelevant={now.tm_year}-{now.tm_mon}-{now.tm_mday}"
+    response = requests.get(url).json()
+    return response["couleurJourJ1"]
 
 def wait_for_new_day():
     while True:
@@ -100,6 +118,7 @@ def main():
     while True:
         os.system("cls")
         color = get_tempo_color()
+        colorJ1=get_tempo_colorJ1()
         if color == "TEMPO_ROUGE":
             print("\n\nCouleur : rouge")
             heures = heures_rouges
@@ -189,6 +208,9 @@ def main():
                     set_power("OFF")
 
                 next_check = datetime.datetime.now
+
+    data = {"Date": next_check,"couleurJ": color, "couleurJ1": colorJ1,"IP_plug":ip,"RED_status":heures_rouges,"WHITE_status":heures_blanches,"BLUE_status":heures_bleues}
+    ref.set(data)
 
 
 
