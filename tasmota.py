@@ -12,7 +12,7 @@ firebase_admin.initialize_app(cred, {
     'databaseURL': 'https://tempobot-406fc-default-rtdb.europe-west1.firebasedatabase.app/'
 })
 
-ref = db.reference("/data")
+
 
 
 ip = "192.168.1.70"  # remplacer par l'adresse IP de votre prise Tasmota
@@ -141,76 +141,57 @@ def main():
         if int(heures[0][0]) == 1 and int(heures[0][1]) == 1:
             if (heure_actuelle >= 6 and heure_actuelle < 22) or (heure_actuelle == 22 and minute_actuelle == 0):
                 print("Heures : pleines")
+                statut = 1
                 set_power("ON")
             else:
                 print("Heures : creuses")
+                statut = 0
                 set_power("OFF")
         elif int(heures[0][0]) == 1 and int(heures[0][1]) == 0:
             if heure_actuelle >= 6:
+                statut = 1
                 set_power("ON")
             else:
+                statut = 0
                 set_power("OFF")
         elif int(heures[0][0]) == 0 and int(heures[0][1]) == 1:
             if heure_actuelle < 6 or (heure_actuelle == 22 and minute_actuelle == 0) or heure_actuelle >= 22:
                 print("Heures : creuses")
+                statut = 1
                 set_power("ON")
             else:
                 print("Heures : pleines")
+                statut = 0
                 set_power("OFF")
         else:
+            statut = 0
             set_power("OFF")
 
         # Afficher l'heure
 
         print("Heure : {}:{}:{}".format(now.tm_hour, now.tm_min, now.tm_sec))
         time.sleep(5)
-        data = {"date": "{:04d}/{:02d}/{:02d}".format(now.tm_year, now.tm_mon, now.tm_mday), "heure": "{}:{}:{}".format(now.tm_hour, now.tm_min, now.tm_sec),"couleurJ": color, "couleurJ1": colorJ1, "IP_plug": ip, "RED_pleine": heures_rouges[0][0], "RED_creuse": heures_rouges[1][1],"WHITE_pleine": heures_blanches[0][0],"WHITE_creuse": heures_blanches[1][1], "BLUE_pleine": heures_bleues[0][0], "BLUE_creuse": heures_bleues[1][1]}
+        ref = db.reference("/data")
+        data = {"date": "{:04d}/{:02d}/{:02d}".format(now.tm_year,
+                 now.tm_mon, now.tm_mday),
+                "heure": "{}:{}:{}".format(now.tm_hour,
+                now.tm_min, now.tm_sec),
+                "couleurJ": color,
+                "couleurJ1": colorJ1,
+                "IP_plug": ip,
+                "RED_pleine": heures_rouges[0][0],
+                "RED_creuse": heures_rouges[0][1],
+                "WHITE_pleine": heures_blanches[0][0],
+                "WHITE_creuse": heures_blanches[0][1],
+                "BLUE_pleine": heures_bleues[0][0],
+                "BLUE_creuse": heures_bleues[0][1],
+                "statut_plug": statut,
+                }
         ref.set(data)
         print("test")
         os.system("cls")
 
-        # Calculer le temps restant avant la prochaine vérification de la couleur
-        time_left = next_color_check - time.time()
 
-        if time_left > 0:
-            while True:
-                color = get_tempo_color()
-                if color == "TEMPO_ROUGE":
-                    print("Couleur : rouge")
-                    heures = heures_rouges
-                elif color == "TEMPO_BLANC":
-                    print("Couleur : blanc")
-                    heures = heures_blanches
-                elif color == "TEMPO_BLEU":
-                    print("Couleur : bleu")
-                    heures = heures_bleues
-                else:
-                    wait_for_new_day()
-                    continue
-
-                now = time.localtime()
-                heure_actuelle = now.tm_hour
-                minute_actuelle = now.tm_min
-
-                if int(heures[0][0]) == 1 and int(heures[0][1]) == 1:
-                    if (heure_actuelle >= 6 and heure_actuelle < 22) or (heure_actuelle == 22 and minute_actuelle == 0):
-                        set_power("ON")
-                    else:
-                        set_power("OFF")
-                elif int(heures[0][0]) == 1 and int(heures[0][1]) == 0:
-                    if heure_actuelle >= 6:
-                        set_power("ON")
-                    else:
-                        set_power("OFF")
-                elif int(heures[0][0]) == 0 and int(heures[0][1]) == 1:
-                    if heure_actuelle < 6 or (heure_actuelle == 22 and minute_actuelle == 0) or heure_actuelle >= 22:
-                        set_power("ON")
-                    else:
-                        set_power("OFF")
-                else:
-                    set_power("OFF")
-
-                next_check = datetime.datetime.now
 
 
 
