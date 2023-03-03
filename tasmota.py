@@ -86,7 +86,7 @@ def main():
     heures_blanches = [[0, 0], [0, 0]]
     heures_bleues = [[0, 0], [0, 0]]
     heures = None
-    os.system("clear")
+    os.system("cls")
     couleurs = ["rouge", "blanc", "bleu"]
     print("Configuration de la prise connectée (1 pour On, 0 pour Off)")
     for i in range(3):
@@ -164,7 +164,10 @@ def main():
 
         print("Heure : {}:{}:{}".format(now.tm_hour, now.tm_min, now.tm_sec))
         time.sleep(5)
-        os.system("clear")
+        data = {"date": "{:04d}/{:02d}/{:02d}".format(now.tm_year, now.tm_mon, now.tm_mday), "heure": "{}:{}:{}".format(now.tm_hour, now.tm_min, now.tm_sec),"couleurJ": color, "couleurJ1": colorJ1, "IP_plug": ip, "RED_pleine": heures_rouges[0][0], "RED_creuse": heures_rouges[1][1],"WHITE_pleine": heures_blanches[0][0],"WHITE_creuse": heures_blanches[1][1], "BLUE_pleine": heures_bleues[0][0], "BLUE_creuse": heures_bleues[1][1]}
+        ref.set(data)
+        print("test")
+        os.system("cls")
 
         # Calculer le temps restant avant la prochaine vérification de la couleur
         time_left = next_color_check - time.time()
@@ -209,8 +212,8 @@ def main():
 
                 next_check = datetime.datetime.now
 
-    data = {"Date": next_check,"couleurJ": color, "couleurJ1": colorJ1,"IP_plug":ip,"RED_status":heures_rouges,"WHITE_status":heures_blanches,"BLUE_status":heures_bleues}
-    ref.set(data)
+
+
 
 
 
