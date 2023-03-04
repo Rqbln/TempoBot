@@ -96,7 +96,7 @@ def main():
 
 
     Jrestants_BLEU, Jrestants_BLANC, Jrestants_ROUGE = jours_restants()
-    print("Il reste", Jrestants_BLEU, "jours bleus")
+    print("\nIl reste", Jrestants_BLEU, "jours bleus")
     print("Il reste", Jrestants_BLANC, "jours blancs")
     print("Il reste", Jrestants_ROUGE, "jours rouges")
 
@@ -188,7 +188,7 @@ def main():
         ref = db.reference("/data")
         data = {"date": "{:04d}/{:02d}/{:02d}".format(now.tm_year,
                  now.tm_mon, now.tm_mday),
-                "heure": "{}:{}:{}".format(now.tm_hour,
+                "heure": "{:02d}:{:02d}:{:02d}".format(now.tm_hour,
                 now.tm_min, now.tm_sec),
                 "couleurJ": color,
                 "couleurJ1": colorJ1,
