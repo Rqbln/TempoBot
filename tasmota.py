@@ -14,10 +14,16 @@ firebase_admin.initialize_app(cred, {
 
 
 
-
 ip = "192.168.1.70"  # remplacer par l'adresse IP de votre prise Tasmota
 command_on = "Power%20on"
 command_off = "Power%20off"
+def jours_restants():
+    url_Jrestants=f"https://particulier.edf.fr/services/rest/referentiel/getNbTempoDays?TypeAlerte=TEMPO"
+    Jrestants = requests.get(url_Jrestants).json()
+    return (Jrestants["PARAM_NB_J_BLEU"], Jrestants["PARAM_NB_J_BLANC"], Jrestants["PARAM_NB_J_ROUGE"])
+
+
+
 
 def set_power(status):
     if status == "ON":
@@ -87,6 +93,14 @@ def main():
     heures_bleues = [[0, 0], [0, 0]]
     heures = None
     os.system("cls")
+
+
+    Jrestants_BLEU, Jrestants_BLANC, Jrestants_ROUGE = jours_restants()
+    print("Il reste", Jrestants_BLEU, "jours bleus")
+    print("Il reste", Jrestants_BLANC, "jours blancs")
+    print("Il reste", Jrestants_ROUGE, "jours rouges")
+
+
     couleurs = ["rouge", "blanc", "bleu"]
     print("Configuration de la prise connectée (1 pour On, 0 pour Off)")
     for i in range(3):
@@ -186,6 +200,9 @@ def main():
                 "BLUE_pleine": heures_bleues[0][0],
                 "BLUE_creuse": heures_bleues[0][1],
                 "statut_plug": statut,
+                "Jrest_bleu":Jrestants_BLEU,
+                "Jrest_blanc":Jrestants_BLANC,
+                "Jrest_rouge":Jrestants_ROUGE
                 }
         ref.set(data)
         print("test")
