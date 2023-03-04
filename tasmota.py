@@ -188,6 +188,8 @@ def main():
         ref = db.reference("/data")
         data = {"date": "{:04d}/{:02d}/{:02d}".format(now.tm_year,
                  now.tm_mon, now.tm_mday),
+                "dateJ1": "{:04d}/{:02d}/{:02d}".format(now.tm_year,
+                now.tm_mon, now.tm_mday + 1),
                 "heure": "{:02d}:{:02d}:{:02d}".format(now.tm_hour,
                 now.tm_min, now.tm_sec),
                 "couleurJ": color,
@@ -199,13 +201,11 @@ def main():
                 "WHITE_creuse": heures_blanches[0][1],
                 "BLUE_pleine": heures_bleues[0][0],
                 "BLUE_creuse": heures_bleues[0][1],
-                "statut_plug": statut,
                 "Jrest_bleu":Jrestants_BLEU,
                 "Jrest_blanc":Jrestants_BLANC,
                 "Jrest_rouge":Jrestants_ROUGE
                 }
         ref.set(data)
-        print("test")
         os.system("cls")
 
 
