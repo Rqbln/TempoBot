@@ -172,6 +172,7 @@ def main():
                 "WHITE_creuse": heures_blanches[0][1],
                 "BLUE_pleine": heures_bleues[0][0],
                 "BLUE_creuse": heures_bleues[0][1],
+                "statut_plug": statut,
                 "Jrest_bleu":Jrestants_BLEU,
                 "Jrest_blanc":Jrestants_BLANC,
                 "Jrest_rouge":Jrestants_ROUGE
