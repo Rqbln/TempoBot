@@ -1,5 +1,5 @@
 import requests
-import datetime
+from datetime import date, timedelta
 import time
 import os
 
@@ -160,8 +160,7 @@ def main():
         ref = db.reference("/data")
         data = {"date": "{:04d}/{:02d}/{:02d}".format(now.tm_year,
                  now.tm_mon, now.tm_mday),
-                "dateJ1": "{:04d}/{:02d}/{:02d}".format(now.tm_year,
-                now.tm_mon, now.tm_mday + 1),
+                "dateJ1": (date.today()+timedelta(days=1)).strftime("%Y/%m/%d"),
                 "heure": "{:02d}:{:02d}:{:02d}".format(now.tm_hour,
                 now.tm_min, now.tm_sec),
                 "couleurJ": color,
