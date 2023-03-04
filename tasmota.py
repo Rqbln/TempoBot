@@ -59,34 +59,6 @@ def wait_for_new_day():
         else:
             break
 
-"""
-def configPrise():
-    heures = [[0, 0], [0, 0], [0, 0]]
-    couleurs = ["rouge", "blanc", "bleu"]
-    print("Configuration de la prise connectée (1 pour On, 0 pour Off)")
-    for i in range(3):
-
-        print("\nCouleur :", couleurs[i])
-        heures[i][0] = input("Heures pleines : ")
-        if "1" == heures[i][0]:
-            print("ON")
-        elif "0" == heures[i][0]:
-            print("OFF")
-
-        heures[i][1] = input("Heures creuses : ")
-        if "1" == heures[i][1]:
-            print("ON")
-        elif "0" == heures[i][1]:
-            print("OFF")
-
-    print("\nRésumé :")
-    for i in range(3):
-        print("Jours", couleurs[i], ":")
-        print("Heures pleines :", "ON" if heures[i][0] == "1" else "OFF")
-        print("Heures creuses :", "ON" if heures[i][1] == "1" else "OFF")
-"""
-
-
 def main():
     heures_rouges = [[0, 0], [0, 0]]
     heures_blanches = [[0, 0], [0, 0]]
