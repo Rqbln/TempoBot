@@ -47,7 +47,7 @@ struct InfoPriseView: View {
                                 nomPrise = newValue
                             }
                     
-                    Text("Votre prise est actuellement " + (prise.isOn ? "allumée" : "éteinte"))
+                    Text("Votre prise est actuellement " + (prise.isOn ? "allumée biiite" : "éteinte"))
                     Spacer()
                     Text("Appuyez sur le bouton ci-dessous pour gérer l'alimentation")
                         .multilineTextAlignment(.center)
