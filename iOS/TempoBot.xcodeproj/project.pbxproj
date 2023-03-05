@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B37F74A29B3E0A200BDAEC9 /* HeurePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B37F74929B3E0A200BDAEC9 /* HeurePickerView.swift */; };
+		1B6E96D629B40AD6003B4133 /* ParametresAvancesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6E96D529B40AD6003B4133 /* ParametresAvancesView.swift */; };
+		1B98A6D929B4F72E00C25335 /* ScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B98A6D829B4F72E00C25335 /* ScannerView.swift */; };
 		1BCCC88E299572760022B843 /* MainPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCCC88D299572760022B843 /* MainPage.swift */; };
 		1BD6D6442996BAD700D7BAC5 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1BD6D6432996BAD700D7BAC5 /* FirebaseAuth */; };
 		1BD6D6462996BAD700D7BAC5 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 1BD6D6452996BAD700D7BAC5 /* FirebaseFirestore */; };
@@ -28,6 +31,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1B37F74929B3E0A200BDAEC9 /* HeurePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeurePickerView.swift; sourceTree = "<group>"; };
+		1B6E96D529B40AD6003B4133 /* ParametresAvancesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParametresAvancesView.swift; sourceTree = "<group>"; };
+		1B98A6D829B4F72E00C25335 /* ScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerView.swift; sourceTree = "<group>"; };
 		1BCCC88D299572760022B843 /* MainPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPage.swift; sourceTree = "<group>"; };
 		1BD6D6492996BFD400D7BAC5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1BD6D64B2996C1DC00D7BAC5 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
@@ -61,6 +67,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1B98A6DA29B4F73400C25335 /* Scanner */ = {
+			isa = PBXGroup;
+			children = (
+				1B98A6D829B4F72E00C25335 /* ScannerView.swift */,
+			);
+			path = Scanner;
+			sourceTree = "<group>";
+		};
 		1BD6D6532996E48B00D7BAC5 /* Jours */ = {
 			isa = PBXGroup;
 			children = (
@@ -81,6 +95,8 @@
 			isa = PBXGroup;
 			children = (
 				1BDCBC1329B2635E00608961 /* NouvellePriseView.swift */,
+				1B6E96D529B40AD6003B4133 /* ParametresAvancesView.swift */,
+				1B37F74929B3E0A200BDAEC9 /* HeurePickerView.swift */,
 				1BF3C1A629B269E500F818FC /* setupPrise.swift */,
 				1BF3C1AC29B26AB900F818FC /* InfoPriseView.swift */,
 			);
@@ -116,10 +132,11 @@
 		1BF867E02993E2480074C1ED /* TempoBot */ = {
 			isa = PBXGroup;
 			children = (
-				1BF867E12993E2480074C1ED /* TempoBotApp.swift */,
 				1BF867E32993E2480074C1ED /* ContentView.swift */,
 				1BCCC88D299572760022B843 /* MainPage.swift */,
+				1B98A6DA29B4F73400C25335 /* Scanner */,
 				1BDCBC1129B2453A00608961 /* ReadDatas.swift */,
+				1BF867E12993E2480074C1ED /* TempoBotApp.swift */,
 				1BF3C1A929B269FE00F818FC /* Authentification */,
 				1BD6D6532996E48B00D7BAC5 /* Jours */,
 				1BF3C1A829B269EB00F818FC /* Prise */,
@@ -224,12 +241,15 @@
 				1BCCC88E299572760022B843 /* MainPage.swift in Sources */,
 				1BDCBC1229B2453A00608961 /* ReadDatas.swift in Sources */,
 				1BD6D6552996E4D500D7BAC5 /* setupJour.swift in Sources */,
+				1B98A6D929B4F72E00C25335 /* ScannerView.swift in Sources */,
 				1BDCBC1429B2635E00608961 /* NouvellePriseView.swift in Sources */,
 				1BD6D64C2996C1DC00D7BAC5 /* Login.swift in Sources */,
 				1BF3C1AD29B26AB900F818FC /* InfoPriseView.swift in Sources */,
 				1BD6D64E2996C23000D7BAC5 /* SignUp.swift in Sources */,
 				1BD6D6572996F00F00D7BAC5 /* JourView.swift in Sources */,
+				1B37F74A29B3E0A200BDAEC9 /* HeurePickerView.swift in Sources */,
 				1BF3C1A729B269E500F818FC /* setupPrise.swift in Sources */,
+				1B6E96D629B40AD6003B4133 /* ParametresAvancesView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -354,6 +374,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TempoBot/Preview Content\"";
+				DEVELOPMENT_TEAM = RUP46893UX;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -362,11 +383,11 @@
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = "";
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
@@ -390,6 +411,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TempoBot/Preview Content\"";
+				DEVELOPMENT_TEAM = RUP46893UX;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -398,11 +420,11 @@
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = "";
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.0;

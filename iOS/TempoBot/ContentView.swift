@@ -7,14 +7,17 @@
 
 import SwiftUI
 
-
 struct ContentView: View {
+    @StateObject var datas = ReadDatas()
     var body: some View {
-    Login()
+        MainPage().environmentObject(datas)
     }
 }
+
 struct ContentView_Previews: PreviewProvider {
+    @StateObject static var previewDatas = ReadDatas()
     static var previews: some View {
-        ContentView()
+        ContentView().environmentObject(previewDatas)
     }
 }
+

@@ -17,10 +17,6 @@ struct Login: View {
             @State private var verification: String = "pas fait"
             
             @State private var UserIsLoggedIn: Bool = false
-            let auth = [
-                    "": "",
-                    "username2": "password2"
-                ]
             
             var body: some View {
                 
@@ -69,7 +65,10 @@ struct Login: View {
                         }
                                     
                 .navigationBarTitle("Login")
-        
+                .navigationDestination(isPresented: $UserIsLoggedIn) {
+                        MainPage()
+                    }
+                .navigationBarBackButtonHidden(true)
                 }
                 
                 }

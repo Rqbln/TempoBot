@@ -9,10 +9,12 @@ import SwiftUI
 import Firebase
 
 
+
 struct MainPage: View {
 
-    @ObservedObject var datas = ReadDatas()
-    @State var prises: [prise] = []
+    @EnvironmentObject var datas : ReadDatas
+    
+    @State var supprimer : Bool = false
     @State var today: jour = jour(couleur: .blue, date: "pas défini", couleur_jour: "pas défini")
     @State var tomorrow: jour = jour(couleur: .red, date: "pas défini", couleur_jour: "pas défini")
 
@@ -50,10 +52,10 @@ struct MainPage: View {
     }
     
     var body: some View {
+        
         NavigationStack{
             ZStack {
-                LinearGradient(colors: [ Color("Violet foncé"), Color("Bleu foncé")], startPoint: .leading, endPoint: .bottomTrailing)
-                    .ignoresSafeArea()
+                
                 ScrollView{
                     VStack{
                         
@@ -63,20 +65,41 @@ struct MainPage: View {
                         
                         Spacer()
                         
-                        Rectangle()
-                            .foregroundColor(.white)
-                            .frame(height: 0.2)
-                            .opacity(0.5)
+                        Divider()
                             .padding()
                         
                         
-                        ForEach($prises) { $prise in
+                        ForEach($datas.prises) { $prise in
+                            let priseRef = ref.child("data/prises").child("\(prise.id)")
                             RoundedRectangle(cornerRadius: 20)
                                 .foregroundColor(prise.isOn ? .green : .secondary)
                                 .frame(height: 100)
-                                .opacity(prise.isOn ? 0.5 : 1)
                                 .overlay(
                                     HStack{
+                                        Button {
+                                            supprimer = true
+                                        } label: {
+                                            Image(systemName: "trash")
+                                                .foregroundColor(.red)
+                                                .font(.system(size: 22))
+                                        }
+                                        .actionSheet(isPresented: $supprimer) {
+                                            ActionSheet(title: Text("Supprimer la prise"),
+                                                        message: Text("Êtes-vous sûr de vouloir supprimer cette prise ? Toutes ses données seront effacées."),
+                                                        buttons: [
+                                                            .destructive(Text("Supprimer"), action: {
+                                                                priseRef.removeValue()
+                                                                withAnimation{
+                                                                    datas.prises.removeAll { $0.id == prise.id }
+                                                                }
+                                                                
+                                                            }),
+                                                            .cancel(Text("Annuler"), action: {
+                                                                supprimer = false
+
+                                                            })
+                                                        ])
+                                        }
                                         Spacer()
                                         Text(prise.nom)
                                         Spacer()
@@ -90,12 +113,33 @@ struct MainPage: View {
                                 )
                                 .foregroundColor(.white)
                                 .padding(.horizontal)
+                                .onAppear{
+                                    let priseRef = ref.child("data/prises").child("\(prise.id)")
+                                    priseRef.observe(.value) { snapshot in
+                                        if let data = snapshot.value as? [String: Any] {
+                                            prise.isOn = data["isOn"] as? Bool ?? false
+                                            
+                            
+                                        }
+                                    }
+                                }
                         }
                                     
-                        NavigationLink("Ajouter une nouvelle prise", destination: NouvellePriseView(prises: $prises))
+                        NavigationLink("Ajouter une nouvelle prise", destination: NouvellePriseView())
                             .foregroundColor(.accentColor)
-                            .padding(.top)
-                        
+                            
+                        NavigationLink("QR code", destination:
+                                        ZStack {
+                                            ScannerView()
+                                                .ignoresSafeArea()
+                                            VStack {
+                                                Text("Scanner QR code")
+                                                    .foregroundColor(.white)
+                                                    .font(.system(size: 30))
+                                                Spacer()
+                                            }
+                        })
+                            .padding()
                     }
                 }
             }
@@ -108,6 +152,8 @@ struct MainPage: View {
             datas.startObservingCouleurJ1()
             datas.startObservingDate()
             datas.startObservingDateJ1()
+            
+            
         }
         
         // Regarde les changements sur la variable couleurJ
@@ -142,6 +188,7 @@ struct MainPage: View {
 struct MainPage_Previews: PreviewProvider {
     static var previews: some View {
         MainPage()
+            .environmentObject(ReadDatas())
             
     }
 }

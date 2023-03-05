@@ -18,6 +18,8 @@ class ReadDatas: ObservableObject{
     @Published var date: String? = nil
     @Published var dateJ1: String? = nil
     
+    @Published var prises : [prise] = []
+    
     func startObservingCouleurJ(){
         ref.child("data/couleurJ").observe(.value) { snapshot in
             if let couleurJ = snapshot.value as? String {
