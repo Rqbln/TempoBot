@@ -4,7 +4,7 @@ from firebase_admin import db
 import requests
 import time
 
-ip = "192.168.68.65"  # remplacer par l'adresse IP de votre prise Tasmota
+ip = "192.168.1.70"  # remplacer par l'adresse IP de votre prise Tasmota
 command_on = "Power%20on"
 command_off = "Power%20off"
 

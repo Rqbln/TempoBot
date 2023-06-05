@@ -1,5 +1,6 @@
 import requests
 from datetime import date, timedelta
+import subprocess
 import time
 import os
 
@@ -25,19 +26,25 @@ def jours_restants():
 
 
 
-def set_power(status):
+def set_power():
+    topic = input("Entrez le nom du topic : ")
+    status = input("Voulez-vous allumer ou éteindre la prise ? (ON/OFF) : ").upper()
+
     if status == "ON":
-        response = requests.get(f"http://{ip}/cm?cmnd={command_on}")
+        message = "1"
     elif status == "OFF":
-        response = requests.get(f"http://{ip}/cm?cmnd={command_off}")
+        message = "0"
     else:
         print("Erreur : statut invalide")
         return
 
-    if response.status_code != 200:
+    command = f"mosquitto_pub -d -t cmnd/tasmota_{topic}/power -m '{message}'"
+
+    result = subprocess.run(command, shell=True)
+    if result.returncode != 0:
         print("Erreur : impossible de contrôler la prise Tasmota")
     else:
-        print(f"Prise Tasmota : {status}")
+        print(f"Prise Tasmota sur le topic '{topic}' : {status}")
 
 def get_tempo_color():
     now = time.localtime()
@@ -73,34 +80,6 @@ def main():
     print("Il reste", Jrestants_ROUGE, "jours rouges")
 
 
-    couleurs = ["rouge", "blanc", "bleu"]
-    print("Configuration de la prise connectée (1 pour On, 0 pour Off)")
-    for i in range(3):
-        print("\nCouleur :", couleurs[i])
-        if i == 0:
-            heures = heures_rouges
-        elif i == 1:
-            heures = heures_blanches
-        else:
-            heures = heures_bleues
-
-        heures[0][0] = input("Heures pleines : ")
-        heures[0][1] = input("Heures creuses : ")
-
-    print("\nRésumé :")
-    for i in range(3):
-        print("Jours", couleurs[i], ":")
-        if i == 0:
-            heures = heures_rouges
-        elif i == 1:
-            heures = heures_blanches
-        else:
-            heures = heures_bleues
-        print("Heures pleines :", "ON" if heures[0][0] == "1" else "OFF")
-        print("Heures creuses :", "ON" if heures[0][1] == "1" else "OFF")
-
-    next_color_check = time.time()
-
     while True:
         os.system("cls")
         color = get_tempo_color()
@@ -122,57 +101,17 @@ def main():
         heure_actuelle = now.tm_hour
         minute_actuelle = now.tm_min
 
-
-
-        if int(heures[0][0]) == 1 and int(heures[0][1]) == 1:
-            if (heure_actuelle >= 6 and heure_actuelle < 22) or (heure_actuelle == 22 and minute_actuelle == 0):
-                print("Heures : pleines")
-                statut = 1
-                set_power("ON")
-            else:
-                print("Heures : creuses")
-                statut = 0
-                set_power("OFF")
-        elif int(heures[0][0]) == 1 and int(heures[0][1]) == 0:
-            if heure_actuelle >= 6:
-                statut = 1
-                set_power("ON")
-            else:
-                statut = 0
-                set_power("OFF")
-        elif int(heures[0][0]) == 0 and int(heures[0][1]) == 1:
-            if heure_actuelle < 6 or (heure_actuelle == 22 and minute_actuelle == 0) or heure_actuelle >= 22:
-                print("Heures : creuses")
-                statut = 1
-                set_power("ON")
-            else:
-                print("Heures : pleines")
-                statut = 0
-                set_power("OFF")
-        else:
-            statut = 0
-            set_power("OFF")
-
         # Afficher l'heure
 
         print("Heure : {}:{}:{}".format(now.tm_hour, now.tm_min, now.tm_sec))
-        time.sleep(5)
+        time.sleep(30)
         ref = db.reference("/data")
         data = {"date": "{:04d}/{:02d}/{:02d}".format(now.tm_year,
                  now.tm_mon, now.tm_mday),
                 "dateJ1": (date.today()+timedelta(days=1)).strftime("%Y/%m/%d"),
-                "heure": "{:02d}:{:02d}:{:02d}".format(now.tm_hour,
-                now.tm_min, now.tm_sec),
                 "couleurJ": color,
                 "couleurJ1": colorJ1,
-                "IP_plug": ip,
-                "RED_pleine": heures_rouges[0][0],
-                "RED_creuse": heures_rouges[0][1],
-                "WHITE_pleine": heures_blanches[0][0],
-                "WHITE_creuse": heures_blanches[0][1],
-                "BLUE_pleine": heures_bleues[0][0],
-                "BLUE_creuse": heures_bleues[0][1],
-                "statut_plug": statut,
+
                 "Jrest_bleu":Jrestants_BLEU,
                 "Jrest_blanc":Jrestants_BLANC,
                 "Jrest_rouge":Jrestants_ROUGE

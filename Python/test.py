@@ -1,23 +1,25 @@
-import requests
+import subprocess
 
-ip = "192.168.1.70"  # Remplacez cette adresse IP par celle de votre prise Tasmota
-command_on = "Power%20on"
-command_off = "Power%20off"
+def set_power():
+    topic = input("Entrez le nom du topic : ")
+    status = input("Voulez-vous allumer ou éteindre la prise ? (ON/OFF) : ").upper()
 
-while True:
-    command = input("Entrez la commande à envoyer (ON ou OFF) : ")
-    if command.lower() == "on":
-        url = f"http://{ip}/cm?cmnd={command_on}"
-    elif command.lower() == "off":
-        url = f"http://{ip}/cm?cmnd={command_off}"
+    if status == "ON":
+        message = "1"
+    elif status == "OFF":
+        message = "0"
     else:
-        print("Commande invalide. Entrez ON ou OFF.")
-        continue
-    response = requests.get(url)
-    print(response.text)
+        print("Erreur : statut invalide")
+        return
+
+    command = f"mosquitto_pub -d -t cmnd/tasmota_{topic}/power -m '{message}'"
+
+    result = subprocess.run(command, shell=True)
+    if result.returncode != 0:
+        print("Erreur : impossible de contrôler la prise Tasmota")
+    else:
+        print(f"Prise Tasmota sur le topic '{topic}' : {status}")
 
 
-
-
-
-
+if __name__ == "__main__":
+    set_power()
