@@ -116,7 +116,7 @@ def main():
                 "Jrest_blanc":Jrestants_BLANC,
                 "Jrest_rouge":Jrestants_ROUGE
                 }
-        ref.set(data)
+        ref.update(data)
         os.system("cls")
 
 
