@@ -6,7 +6,7 @@ ip_address = requests.get('https://api.ipify.org').text
 print(f"L'adresse IP publique est : {ip_address}")
 
 # Adresse IP de l'appareil à rediriger le port
-ip = '192.168.65.100'
+ip = '172.20.10.2'
 
 # Créez une instance de l'objet UPnP
 u = miniupnpc.UPnP()
