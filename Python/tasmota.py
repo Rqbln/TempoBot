@@ -73,13 +73,30 @@ def wait_for_new_day():
             time.sleep(60)
         else:
             break
+
+def recup_val_statutJ():
+    ref = db.reference('/data')
+
+    data = ref.get()
+
+    if 'couleurJ' in data and 'Pleines_creuses' in data:
+        couleurJ = data['couleurJ']
+        creuses = data['Pleines_creuses']
+
+        # Afficher les valeurs récupérées
+        print("couleurJ:", couleurJ)
+        print("creuses:", creuses)
+    else:
+        print("Les données n'existent pas dans la base de données.")
+
+
 def process_user_data(users_data, previous_data):
     # Vérifier s'il y a des utilisateurs
     if users_data is not None:
         # Parcourir tous les utilisateurs
         for user_id, user_data in users_data.items():
             # Exclure les clés indésirables
-            if user_id not in ['Jrest_blanc', 'Jrest_bleu', 'Jrest_rouge', 'couleurJ', 'couleurJ1', 'date', 'dateJ1']:
+            if user_id not in ['Jrest_blanc', 'Jrest_bleu', 'Jrest_rouge', 'couleurJ', 'couleurJ1', 'date', 'dateJ1','Pleines_creuses']:
                 print("Utilisateur:", user_id)
 
                 # Vérifier le type de user_data
@@ -154,6 +171,7 @@ def main():
     heures = None
     os.system("cls")
 
+
     Jrestants_BLEU, Jrestants_BLANC, Jrestants_ROUGE = jours_restants()
     print("\nIl reste", Jrestants_BLEU, "jours bleus")
     print("Il reste", Jrestants_BLANC, "jours blancs")
@@ -197,6 +215,9 @@ def main():
             "Pleines_creuses": heure_creux_plein()
         }
         ref.update(data)
+
+        recup_val_statutJ()
+
         os.system("cls")
 
 
