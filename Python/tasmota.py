@@ -76,7 +76,6 @@ def wait_for_new_day():
 
 def recup_val_statutJ():
     ref = db.reference('/data')
-
     data = ref.get()
 
     if 'couleurJ' in data and 'Pleines_creuses' in data:
@@ -86,12 +85,18 @@ def recup_val_statutJ():
         # Afficher les valeurs récupérées
         print("couleurJ:", couleurJ)
         print("creuses:", creuses)
+
+        return couleurJ, creuses
     else:
         print("Les données n'existent pas dans la base de données.")
+        return None, None
+
 
 
 def process_user_data(users_data, previous_data):
     # Vérifier s'il y a des utilisateurs
+    couleurJ, creuses = recup_val_statutJ()
+
     if users_data is not None:
         # Parcourir tous les utilisateurs
         for user_id, user_data in users_data.items():
@@ -108,8 +113,33 @@ def process_user_data(users_data, previous_data):
                         # Parcourir toutes les prises de l'utilisateur
                         for prise_id, prise_data in prises.items():
                             print("Prise:", prise_id)
-
+                            # Récupérer les valeurs de la prise en fonction de l'état du Tempo et de l'heure creuse/pleine
+                            if creuses == 'pleines':
+                                if couleurJ == 'TEMPO_BLEU':
+                                    valeur = prise_data.get('pleines_bleu')
+                                elif couleurJ == 'TEMPO_BLANC':
+                                    valeur = prise_data.get('pleines_blanc')
+                                elif couleurJ == 'TEMPO_ROUGE':
+                                    valeur = prise_data.get('pleines_rouge')
+                            else:  # creuses == 'creuses'
+                                if couleurJ == 'TEMPO_BLEU':
+                                    valeur = prise_data.get('creuses_bleu')
+                                elif couleurJ == 'TEMPO_BLANC':
+                                    valeur = prise_data.get('creuses_blanc')
+                                elif couleurJ == 'TEMPO_ROUGE':
+                                    valeur = prise_data.get('creuses_rouge')
                             # Vérifier si les données ont changé
+
+                            if valeur is True:
+                                # Ne rien faire
+                                pass
+                            else:
+                                # Allumer la prise mettre la commande qu'il faut
+                                pass
+
+                            # Afficher la valeur de la prise
+                            print("Valeur actuel (enfonction de la couleur et heure)de la prise:", valeur)
+
                             if prise_data != previous_data.get(user_id, {}).get(prise_id):
 
                                 previous_prise_data = previous_data.get(user_id, {}).get(prise_id)
@@ -216,7 +246,6 @@ def main():
         }
         ref.update(data)
 
-        recup_val_statutJ()
 
         os.system("cls")
 
