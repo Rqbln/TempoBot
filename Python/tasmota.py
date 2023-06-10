@@ -95,6 +95,7 @@ def recup_val_statutJ():
 
 def process_user_data(users_data, previous_data):
     # Vérifier s'il y a des utilisateurs
+    valeur=True
     couleurJ, creuses = recup_val_statutJ()
 
     if users_data is not None:
@@ -131,10 +132,15 @@ def process_user_data(users_data, previous_data):
                             # Vérifier si les données ont changé
 
                             if valeur is True:
-                                # Ne rien faire
-                                pass
+                                # Allumer la prise
+
+                                # commande_allumer = f'mosquitto_pub -d -t cmnd/{nom_prise}/power -m "1"'
+                            #  subprocess.run(commande_allumer, shell=True)
+
                             else:
-                                # Allumer la prise mettre la commande qu'il faut
+                                # Allumer la prise
+                                #   commande_allumer = f'mosquitto_pub -d -t cmnd/{nom_prise}/power -m "1"'
+                                #  subprocess.run(commande_allumer, shell=True)
                                 pass
 
                             # Afficher la valeur de la prise
