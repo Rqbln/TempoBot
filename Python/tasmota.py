@@ -66,8 +66,6 @@ def wait_for_new_day():
             time.sleep(60)
         else:
             break
-
-
 def process_user_data(users_data, previous_data):
     # Vérifier s'il y a des utilisateurs
     if users_data is not None:
@@ -78,53 +76,71 @@ def process_user_data(users_data, previous_data):
                 print("Utilisateur:", user_id)
 
                 # Vérifier le type de user_data
-                if isinstance(user_data, int):
-                    print("Donnée utilisateur:", user_data)
-                    continue
+                if isinstance(user_data, dict):
+                    # Vérifier si l'utilisateur a des prises
+                    if 'prises' in user_data:
+                        prises = user_data['prises']
 
-                # Vérifier si l'utilisateur a des prises
-                if 'prises' in user_data:
-                    prises = user_data['prises']
+                        # Parcourir toutes les prises de l'utilisateur
+                        for prise_id, prise_data in prises.items():
+                            print("Prise:", prise_id)
 
-                    # Parcourir toutes les prises de l'utilisateur
-                    for prise_id, prise_data in prises.items():
-                        print("Prise:", prise_id)
+                            # Vérifier si les données ont changé
+                            if prise_data != previous_data.get(user_id, {}).get(prise_id):
 
-                        # Vérifier si les données ont changé
-                        if prise_data != previous_data.get(user_id, {}).get(prise_id):
-                            print("Les données ont changé !")
+                                previous_prise_data = previous_data.get(user_id, {}).get(prise_id)
+                                if previous_prise_data is not None:
+                                    if prise_data.get('creuses_blanc') != previous_prise_data.get('creuses_blanc'):
+                                        print("Changement de l'heure creuse/blanche")
 
-                        # Accéder aux données spécifiques de chaque prise
-                        creuses_blanc = prise_data.get('creuses_blanc')
-                        creuses_bleu = prise_data.get('creuses_bleu')
-                        creuses_rouge = prise_data.get('creuses_rouge')
-                        isOn = prise_data.get('isOn')
-                        nom = prise_data.get('nom')
-                        pleines_blanc = prise_data.get('pleines_blanc')
-                        pleines_bleu = prise_data.get('pleines_bleu')
-                        pleines_rouge = prise_data.get('pleines_rouge')
+                                    if prise_data.get('creuses_bleu') != previous_prise_data.get('creuses_bleu'):
+                                        print("Changement de l'heure creuse/bleue")
 
-                        print("creuses_blanc:", creuses_blanc)
-                        print("creuses_bleu:", creuses_bleu)
-                        print("creuses_rouge:", creuses_rouge)
-                        print("isOn:", isOn)
-                        print("nom:", nom)
-                        print("pleines_blanc:", pleines_blanc)
-                        print("pleines_bleu:", pleines_bleu)
-                        print("pleines_rouge:", pleines_rouge)
+                                    if prise_data.get('creuses_rouge') != previous_prise_data.get('creuses_rouge'):
+                                        print("Changement de l'heure creuse/rouge")
 
-                        # Mettre à jour les données précédentes
-                        if user_id not in previous_data:
-                            previous_data[user_id] = {}
-                        previous_data[user_id][prise_id] = prise_data
+                                    if prise_data.get('pleines_blanc') != previous_prise_data.get('pleines_blanc'):
+                                        print("Changement de l'heure pleine/blanche")
 
+                                    if prise_data.get('pleines_bleu') != previous_prise_data.get('pleines_bleu'):
+                                        print("Changement de l'heure pleine/bleue")
+
+                                    if prise_data.get('pleines_rouge') != previous_prise_data.get('pleines_rouge'):
+                                        print("Changement de l'heure pleine/rouge")
+
+                                # Mettre à jour les données précédentes
+                                if user_id not in previous_data:
+                                    previous_data[user_id] = {}
+                                previous_data[user_id][prise_id] = prise_data
+
+                            creuses_blanc = prise_data.get('creuses_blanc')
+                            creuses_bleu = prise_data.get('creuses_bleu')
+                            creuses_rouge = prise_data.get('creuses_rouge')
+                            isOn = prise_data.get('isOn')
+                            nom = prise_data.get('nom')
+                            pleines_blanc = prise_data.get('pleines_blanc')
+                            pleines_bleu = prise_data.get('pleines_bleu')
+                            pleines_rouge = prise_data.get('pleines_rouge')
+
+                            print("creuses_blanc:", creuses_blanc)
+                            print("creuses_bleu:", creuses_bleu)
+                            print("creuses_rouge:", creuses_rouge)
+                            print("isOn:", isOn)
+                            print("nom:", nom)
+                            print("pleines_blanc:", pleines_blanc)
+                            print("pleines_bleu:", pleines_bleu)
+                            print("pleines_rouge:", pleines_rouge)
+
+                    else:
+                        print("Aucune prise pour cet utilisateur.")
                 else:
-                    print("Aucune prise pour cet utilisateur.")
+                    print("Donnée utilisateur:", user_data)
     else:
         print("Aucun utilisateur trouvé.")
 
-
 def main():
+    previous_data = {}
+
     heures_rouges = [[0, 0], [0, 0]]
     heures_blanches = [[0, 0], [0, 0]]
     heures_bleues = [[0, 0], [0, 0]]
@@ -174,7 +190,6 @@ def main():
         ref.update(data)
         os.system("cls")
 
-        previous_data = {}
 
         # Dans la fonction main():
         ref = db.reference('/data/users')
