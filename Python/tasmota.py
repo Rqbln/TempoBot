@@ -133,7 +133,7 @@ def process_user_data(users_data, previous_data):
 
                             if valeur is True:
                                 # Allumer la prise
-
+                                pass
                                 # commande_allumer = f'mosquitto_pub -d -t cmnd/{nom_prise}/power -m "1"'
                             #  subprocess.run(commande_allumer, shell=True)
 
