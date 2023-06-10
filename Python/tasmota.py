@@ -58,6 +58,13 @@ def get_tempo_colorJ1():
     response = requests.get(url).json()
     return response["couleurJourJ1"]
 
+def heure_creux_plein():
+    heure_actuelle = time.localtime()
+    if heure_actuelle.tm_hour >= 6 and heure_actuelle.tm_hour < 22:
+        return "pleines"
+    else:
+        return "creuses"
+
 
 def wait_for_new_day():
     while True:
@@ -175,6 +182,7 @@ def main():
 
         # Afficher l'heure
         print("Heure : {}:{}:{}".format(now.tm_hour, now.tm_min, now.tm_sec))
+        print(heure_creux_plein())
         time.sleep(5)
 
         ref = db.reference("/data")
@@ -185,7 +193,8 @@ def main():
             "couleurJ1": colorJ1,
             "Jrest_bleu": Jrestants_BLEU,
             "Jrest_blanc": Jrestants_BLANC,
-            "Jrest_rouge": Jrestants_ROUGE
+            "Jrest_rouge": Jrestants_ROUGE,
+            "Pleines_creuses": heure_creux_plein()
         }
         ref.update(data)
         os.system("cls")
