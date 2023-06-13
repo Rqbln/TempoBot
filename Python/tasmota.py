@@ -133,12 +133,19 @@ def process_user_data(users_data, previous_data):
 
                             if valeur is True:
                                 # Allumer la prise
+                                prise_data.update({'isOn': 'true'})
+
+
 
                                 commande_allumer = f'mosquitto_pub -d -t cmnd/{prises}/power -m "0"'
                                 subprocess.run(commande_allumer, shell=True)
+                                pass
 
                             else:
                                 # Allumer la prise
+                                prise_data.update({'isOn': 'false'})
+
+
                                 commande_allumer = f'mosquitto_pub -d -t cmnd/{prises}/power -m "1"'
                                 subprocess.run(commande_allumer, shell=True)
                                 pass
@@ -172,7 +179,7 @@ def process_user_data(users_data, previous_data):
                                 if user_id not in previous_data:
                                     previous_data[user_id] = {}
                                 previous_data[user_id][prise_id] = prise_data
-
+                            """
                             creuses_blanc = prise_data.get('creuses_blanc')
                             creuses_bleu = prise_data.get('creuses_bleu')
                             creuses_rouge = prise_data.get('creuses_rouge')
@@ -181,7 +188,7 @@ def process_user_data(users_data, previous_data):
                             pleines_blanc = prise_data.get('pleines_blanc')
                             pleines_bleu = prise_data.get('pleines_bleu')
                             pleines_rouge = prise_data.get('pleines_rouge')
-
+                            
                             print("creuses_blanc:", creuses_blanc)
                             print("creuses_bleu:", creuses_bleu)
                             print("creuses_rouge:", creuses_rouge)
@@ -190,7 +197,7 @@ def process_user_data(users_data, previous_data):
                             print("pleines_blanc:", pleines_blanc)
                             print("pleines_bleu:", pleines_bleu)
                             print("pleines_rouge:", pleines_rouge)
-
+                            """
                     else:
                         print("Aucune prise pour cet utilisateur.")
                 else:
@@ -262,6 +269,7 @@ def main():
         # Lire les données des utilisateurs
         users_data = ref.get()
         process_user_data(users_data, previous_data)
+        ref.update(users_data)
 
 
 if __name__ == "__main__":
