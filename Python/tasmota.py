@@ -124,7 +124,7 @@ def process_user_data(users_data, previous_data):
                                 # Allumer la prise
                                 prise_data.update({'isOn': 'true'})
 
-                                commande_allumer = f'mosquitto_pub -d -t cmnd/{prises}/power -m "1"'
+                                commande_allumer = f'mosquitto_pub -d -t cmnd/{prise_id}/power -m "0"'
                                 subprocess.run(commande_allumer, shell=True)
                                 pass
 
@@ -132,7 +132,7 @@ def process_user_data(users_data, previous_data):
                                 # Allumer la prise
                                 prise_data.update({'isOn': 'false'})
 
-                                commande_allumer = f'mosquitto_pub -d -t cmnd/{prises}/power -m "0"'
+                                commande_allumer = f'mosquitto_pub -d -t cmnd/{prise_id}/power -m "1"'
                                 subprocess.run(commande_allumer, shell=True)
                                 pass
 
