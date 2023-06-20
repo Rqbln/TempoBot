@@ -1,18 +1,25 @@
-import requests
-from datetime import date, timedelta
-import subprocess
-import time
 import os
 import sys
-
-import firebase_admin
+import time
+import requests
+import subprocess
+from datetime import date, timedelta
+import discord
+import asyncio
 from firebase_admin import credentials
 from firebase_admin import db
+import firebase_admin
 
+# Initialization de Firebase
 cred = credentials.Certificate("tempobot-406fc-firebase-adminsdk-o6bkq-a1ab9cdc76.json")
 firebase_admin.initialize_app(cred, {
     'databaseURL': 'https://tempobot-406fc-default-rtdb.europe-west1.firebasedatabase.app/'
 })
+
+# Initialization de Discord
+intents = discord.Intents.default()
+intents.members = True  # Activer l'intent des membres
+client = discord.Client(intents=intents)
 
 ip = "192.168.1.70"  # remplacer par l'adresse IP de votre prise Tasmota
 command_on = "Power%20on"
@@ -184,7 +191,6 @@ def process_user_data(users_data, previous_data):
     else:
         print("Aucun utilisateur trouvé.")
 
-
 def main():
     previous_data = {}
 
@@ -250,22 +256,53 @@ def main():
             ref.update(users_data)
 
 
+async def send_notification(channel, error_message):
+    # Remplacez 'channel' par le canal Discord spécifique où vous souhaitez envoyer les notifications
+
+    # Créez le message
+    message = f"Une erreur s'est produite : {error_message}"
+    # Envoyez le message
+    await channel.send(message)
 
 
-MAX_CRASH_COUNT = 5
+async def main_loop():
+    previous_data = {}
+
+    while True:
+        try:
+            await main()
+
+        except Exception as e:
+            print(f"Une exception s'est produite : {e}")
+            await send_notification(f"Une exception s'est produite : {e}")
+            await asyncio.sleep(2)
+
+# Définition de l'événement 'on_ready'
+@client.event
+async def on_ready():
+    print(f'Logged in as {client.user}')
+    client.loop.create_task(main_loop())
+
+# Démarrage du bot
+async def bot_start():
+    print('Démarrage du bot...')
+    await client.start('MTEyMDY2NzA0ODM0Mzc2OTEzOQ.GbjXZQ.8cCMq68KUpc-5EbDbE6GCyzOSWOH5-dbJmoObg')
 
 
-
+# Execution principale
 if __name__ == "__main__":
     crash_count = 0  # Compteur de crashes
+    MAX_CRASH_COUNT = 2
+
     while crash_count < MAX_CRASH_COUNT:
         try:
-            main()
+            asyncio.run(bot_start())
         except Exception as e:
             print("Une exception s'est produite :", str(e))
             print("Redémarrage du code...")
             crash_count += 1
-            time.sleep(20)
+            time.sleep(2)
     else:
         print("Le code a crashé", MAX_CRASH_COUNT, "fois d'affilée. Arrêt du programme.")
+        asyncio.run(send_notification(f"Le code a crashé {MAX_CRASH_COUNT} fois d'affilée. Arrêt du programme."))
         sys.exit()
