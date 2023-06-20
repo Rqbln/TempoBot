@@ -249,5 +249,15 @@ def main():
             ref.update(users_data)
 
 
+
+
+
+
 if __name__ == "__main__":
-    main()
+    while True:
+        try:
+            main()
+        except Exception as e:
+            print("Une erreur s'est produite :", str(e))
+            print("Redémarrage du code...")
+            time.sleep(30)
