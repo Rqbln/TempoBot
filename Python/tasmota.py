@@ -3,6 +3,7 @@ from datetime import date, timedelta
 import subprocess
 import time
 import os
+import sys
 
 import firebase_admin
 from firebase_admin import credentials
@@ -251,13 +252,20 @@ def main():
 
 
 
+MAX_CRASH_COUNT = 5
+
 
 
 if __name__ == "__main__":
-    while True:
+    crash_count = 0  # Compteur de crashes
+    while crash_count < MAX_CRASH_COUNT:
         try:
             main()
         except Exception as e:
-            print("Une erreur s'est produite :", str(e))
+            print("Une exception s'est produite :", str(e))
             print("Redémarrage du code...")
-            time.sleep(30)
+            crash_count += 1
+            time.sleep(20)
+    else:
+        print("Le code a crashé", MAX_CRASH_COUNT, "fois d'affilée. Arrêt du programme.")
+        sys.exit()
