@@ -24,27 +24,6 @@ def jours_restants():
     return Jrestants["PARAM_NB_J_BLEU"], Jrestants["PARAM_NB_J_BLANC"], Jrestants["PARAM_NB_J_ROUGE"]
 
 
-def set_power():
-    topic = input("Entrez le nom du topic : ")
-    status = input("Voulez-vous allumer ou éteindre la prise ? (ON/OFF) : ").upper()
-
-    if status == "ON":
-        message = "1"
-    elif status == "OFF":
-        message = "0"
-    else:
-        print("Erreur : statut invalide")
-        return
-
-    command = f"mosquitto_pub -d -t cmnd/tasmota_{topic}/power -m '{message}'"
-
-    result = subprocess.run(command, shell=True)
-    if result.returncode != 0:
-        print("Erreur : impossible de contrôler la prise Tasmota")
-    else:
-        print(f"Prise Tasmota sur le topic '{topic}' : {status}")
-
-
 def get_tempo_color():
     now = time.localtime()
     url = f"https://particulier.edf.fr/services/rest/referentiel/searchTempoStore?dateRelevant={now.tm_year}-{now.tm_mon}-{now.tm_mday}"
@@ -57,6 +36,7 @@ def get_tempo_colorJ1():
     url = f"https://particulier.edf.fr/services/rest/referentiel/searchTempoStore?dateRelevant={now.tm_year}-{now.tm_mon}-{now.tm_mday}"
     response = requests.get(url).json()
     return response["couleurJourJ1"]
+
 
 def heure_creux_plein():
     heure_actuelle = time.localtime()
@@ -73,6 +53,7 @@ def wait_for_new_day():
             time.sleep(60)
         else:
             break
+
 
 def recup_val_statutJ():
     ref = db.reference('/data')
@@ -92,17 +73,17 @@ def recup_val_statutJ():
         return None, None
 
 
-
 def process_user_data(users_data, previous_data):
     # Vérifier s'il y a des utilisateurs
-    valeur=True
+    valeur = True
     couleurJ, creuses = recup_val_statutJ()
 
     if users_data is not None:
         # Parcourir tous les utilisateurs
         for user_id, user_data in users_data.items():
             # Exclure les clés indésirables
-            if user_id not in ['Jrest_blanc', 'Jrest_bleu', 'Jrest_rouge', 'couleurJ', 'couleurJ1', 'date', 'dateJ1','Pleines_creuses']:
+            if user_id not in ['Jrest_blanc', 'Jrest_bleu', 'Jrest_rouge', 'couleurJ', 'couleurJ1', 'date', 'dateJ1',
+                               'Pleines_creuses']:
                 print("Utilisateur:", user_id)
 
                 # Vérifier le type de user_data
@@ -135,9 +116,7 @@ def process_user_data(users_data, previous_data):
                                 # Allumer la prise
                                 prise_data.update({'isOn': 'true'})
 
-
-
-                                commande_allumer = f'mosquitto_pub -d -t cmnd/{prises}/power -m "0"'
+                                commande_allumer = f'mosquitto_pub -d -t cmnd/{prises}/power -m "1"'
                                 subprocess.run(commande_allumer, shell=True)
                                 pass
 
@@ -145,8 +124,7 @@ def process_user_data(users_data, previous_data):
                                 # Allumer la prise
                                 prise_data.update({'isOn': 'false'})
 
-
-                                commande_allumer = f'mosquitto_pub -d -t cmnd/{prises}/power -m "1"'
+                                commande_allumer = f'mosquitto_pub -d -t cmnd/{prises}/power -m "0"'
                                 subprocess.run(commande_allumer, shell=True)
                                 pass
 
@@ -188,7 +166,7 @@ def process_user_data(users_data, previous_data):
                             pleines_blanc = prise_data.get('pleines_blanc')
                             pleines_bleu = prise_data.get('pleines_bleu')
                             pleines_rouge = prise_data.get('pleines_rouge')
-                            
+
                             print("creuses_blanc:", creuses_blanc)
                             print("creuses_bleu:", creuses_bleu)
                             print("creuses_rouge:", creuses_rouge)
@@ -205,6 +183,7 @@ def process_user_data(users_data, previous_data):
     else:
         print("Aucun utilisateur trouvé.")
 
+
 def main():
     previous_data = {}
 
@@ -213,7 +192,6 @@ def main():
     heures_bleues = [[0, 0], [0, 0]]
     heures = None
     os.system("cls")
-
 
     Jrestants_BLEU, Jrestants_BLANC, Jrestants_ROUGE = jours_restants()
     print("\nIl reste", Jrestants_BLEU, "jours bleus")
@@ -244,7 +222,7 @@ def main():
         # Afficher l'heure
         print("Heure : {}:{}:{}".format(now.tm_hour, now.tm_min, now.tm_sec))
         print(heure_creux_plein())
-        time.sleep(5)
+        time.sleep(2)
 
         ref = db.reference("/data")
         data = {
@@ -259,9 +237,7 @@ def main():
         }
         ref.update(data)
 
-
         os.system("cls")
-
 
         # Dans la fonction main():
         ref = db.reference('/data/users')
