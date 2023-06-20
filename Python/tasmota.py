@@ -256,13 +256,19 @@ def main():
             ref.update(users_data)
 
 
-async def send_notification(channel, error_message):
-    # Remplacez 'channel' par le canal Discord spécifique où vous souhaitez envoyer les notifications
+async def send_notification(message):
+    # Assurez-vous que le bot est connecté avant d'essayer d'envoyer le message.
+    if not client.is_ready():
+        await client.wait_until_ready()
 
-    # Créez le message
-    message = f"Une erreur s'est produite : {error_message}"
-    # Envoyez le message
-    await channel.send(message)
+    channel_id = 1120669437528379464  # remplacer par l'ID de votre canal
+    channel = client.get_channel(channel_id)
+
+    if channel:
+        await channel.send(message)
+    else:
+        print(f"Channel with ID {channel_id} not found.")
+
 
 
 async def main_loop():
