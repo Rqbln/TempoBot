@@ -292,7 +292,7 @@ async def bot_start():
 # Execution principale
 if __name__ == "__main__":
     crash_count = 0  # Compteur de crashes
-    MAX_CRASH_COUNT = 2
+    MAX_CRASH_COUNT = 5
 
     while crash_count < MAX_CRASH_COUNT:
         try:
