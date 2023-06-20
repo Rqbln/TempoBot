@@ -269,7 +269,8 @@ def main():
         # Lire les données des utilisateurs
         users_data = ref.get()
         process_user_data(users_data, previous_data)
-        ref.update(users_data)
+        if users_data is not None:
+            ref.update(users_data)
 
 
 if __name__ == "__main__":
