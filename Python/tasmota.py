@@ -273,15 +273,22 @@ async def send_notification(message):
 
 async def main_loop():
     previous_data = {}
+    crash_count = 0  # Compteur de crashes
+    MAX_CRASH_COUNT = 5
+    while crash_count < MAX_CRASH_COUNT:
 
-    while True:
         try:
             await main()
 
         except Exception as e:
             print(f"Une exception s'est produite : {e}")
             await send_notification(f"Une exception s'est produite : {e}")
+            crash_count += 1
             await asyncio.sleep(2)
+    else:
+        print("Le code a crashé", MAX_CRASH_COUNT, "fois d'affilée. Arrêt du programme.")
+        await send_notification(f"Le code a crashé {MAX_CRASH_COUNT} fois d'affilée. Arrêt du programme.")
+        await sys.exit()
 
 # Définition de l'événement 'on_ready'
 @client.event
