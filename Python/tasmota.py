@@ -31,6 +31,18 @@ def jours_restants():
     Jrestants = requests.get(url_Jrestants).json()
     return Jrestants["PARAM_NB_J_BLEU"], Jrestants["PARAM_NB_J_BLANC"], Jrestants["PARAM_NB_J_ROUGE"]
 
+def jour_semaine_fr(date):
+    jours_fr = {
+        0: "Lundi",
+        1: "Mardi",
+        2: "Mercredi",
+        3: "Jeudi",
+        4: "Vendredi",
+        5: "Samedi",
+        6: "Dimanche"
+    }
+    return jours_fr[date.weekday()]
+
 
 def get_tempo_color():
     now = time.localtime()
@@ -235,6 +247,7 @@ def main():
         data = {
             "date": "{:04d}/{:02d}/{:02d}".format(now.tm_year, now.tm_mon, now.tm_mday),
             "dateJ1": (date.today() + timedelta(days=1)).strftime("%Y/%m/%d"),
+            "joursemaine": jour_semaine_fr(date.today()),
             "couleurJ": color,
             "couleurJ1": colorJ1,
             "Jrest_bleu": Jrestants_BLEU,
