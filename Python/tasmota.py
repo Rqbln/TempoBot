@@ -134,7 +134,7 @@ def process_user_data(users_data, previous_data):
 
                             if valeur is True:
                                 # Allumer la prise
-                                prise_data.update({'isOn': 'true'})
+                                prise_data.update({'isOn': True})
 
                                 commande_allumer = f'mosquitto_pub -d -t cmnd/{prise_id}/power -m "0"'
                                 subprocess.run(commande_allumer, shell=True)
@@ -142,7 +142,7 @@ def process_user_data(users_data, previous_data):
 
                             else:
                                 # Allumer la prise
-                                prise_data.update({'isOn': 'false'})
+                                prise_data.update({'isOn': False})
 
                                 commande_allumer = f'mosquitto_pub -d -t cmnd/{prise_id}/power -m "1"'
                                 subprocess.run(commande_allumer, shell=True)
@@ -210,7 +210,7 @@ def main():
     heures_blanches = [[0, 0], [0, 0]]
     heures_bleues = [[0, 0], [0, 0]]
     heures = None
-    os.system("cls")
+    os.system("clear")
 
     Jrestants_BLEU, Jrestants_BLANC, Jrestants_ROUGE = jours_restants()
     print("\nIl reste", Jrestants_BLEU, "jours bleus")
@@ -218,7 +218,7 @@ def main():
     print("Il reste", Jrestants_ROUGE, "jours rouges")
 
     while True:
-        os.system("cls")
+        os.system("clear")
         color = get_tempo_color()
         colorJ1 = get_tempo_colorJ1()
         if color == "TEMPO_ROUGE":
@@ -257,7 +257,7 @@ def main():
         }
         ref.update(data)
 
-        os.system("cls")
+        os.system("clear")
 
         # Dans la fonction main():
         ref = db.reference('/data/users')
