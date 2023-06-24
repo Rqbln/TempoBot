@@ -9,7 +9,8 @@ import asyncio
 from firebase_admin import credentials
 from firebase_admin import db
 import firebase_admin
-
+from datetime import datetime, timedelta
+import datetime
 # Initialization de Firebase
 cred = credentials.Certificate("tempobot-406fc-firebase-adminsdk-o6bkq-a1ab9cdc76.json")
 firebase_admin.initialize_app(cred, {
@@ -30,6 +31,7 @@ def jours_restants():
     url_Jrestants = "https://particulier.edf.fr/services/rest/referentiel/getNbTempoDays?TypeAlerte=TEMPO"
     Jrestants = requests.get(url_Jrestants).json()
     return Jrestants["PARAM_NB_J_BLEU"], Jrestants["PARAM_NB_J_BLANC"], Jrestants["PARAM_NB_J_ROUGE"]
+
 
 def jour_semaine_fr(date):
     jours_fr = {
@@ -111,45 +113,68 @@ def process_user_data(users_data, previous_data):
                     # Vérifier si l'utilisateur a des prises
                     if 'prises' in user_data:
                         prises = user_data['prises']
+                        # if perso est true alors  regarder le jour actuel et comparé avec les donnees utilisateur pour savoir on doit l'activer
 
                         # Parcourir toutes les prises de l'utilisateur
                         for prise_id, prise_data in prises.items():
-                            print("Prise:", prise_id)
-                            # Récupérer les valeurs de la prise en fonction de l'état du Tempo et de l'heure creuse/pleine
-                            if creuses == 'pleines':
-                                if couleurJ == 'TEMPO_BLEU':
-                                    valeur = prise_data.get('pleines_bleu')
-                                elif couleurJ == 'TEMPO_BLANC':
-                                    valeur = prise_data.get('pleines_blanc')
-                                elif couleurJ == 'TEMPO_ROUGE':
-                                    valeur = prise_data.get('pleines_rouge')
-                            else:  # creuses == 'creuses'
-                                if couleurJ == 'TEMPO_BLEU':
-                                    valeur = prise_data.get('creuses_bleu')
-                                elif couleurJ == 'TEMPO_BLANC':
-                                    valeur = prise_data.get('creuses_blanc')
-                                elif couleurJ == 'TEMPO_ROUGE':
-                                    valeur = prise_data.get('creuses_rouge')
-                            # Vérifier si les données ont changé
 
-                            if valeur is True:
-                                # Allumer la prise
-                                prise_data.update({'isOn': True})
+                            print("Prise:", prise_id)
+
+                            if prise_data.get('isManualOn') is None:
+                                print("Statut 'isManualOn' indisponible ou non visible. Passage à la suite.")
+                                # Récupérer les valeurs de la prise en fonction de l'état du Tempo et de l'heure creuse/pleine
+                                if creuses == 'pleines':
+                                    if couleurJ == 'TEMPO_BLEU':
+                                        valeur = prise_data.get('pleines_bleu')
+                                    elif couleurJ == 'TEMPO_BLANC':
+                                        valeur = prise_data.get('pleines_blanc')
+                                    elif couleurJ == 'TEMPO_ROUGE':
+                                        valeur = prise_data.get('pleines_rouge')
+                                else:  # creuses == 'creuses'
+                                    if couleurJ == 'TEMPO_BLEU':
+                                        valeur = prise_data.get('creuses_bleu')
+                                    elif couleurJ == 'TEMPO_BLANC':
+                                        valeur = prise_data.get('creuses_blanc')
+                                    elif couleurJ == 'TEMPO_ROUGE':
+                                        valeur = prise_data.get('creuses_rouge')
+                                # Vérifier si les données ont changé
+
+                                if valeur is True:
+                                    # Allumer la prise
+                                    prise_data.update({'isOn': True})
+                                    commande_allumer = f'mosquitto_pub -d -t cmnd/{prise_id}/power -m "0"'
+                                    subprocess.run(commande_allumer, shell=True)
+                                    print("Valeur actuel (enfonction de la couleur et heure)de la prise:", valeur)
+
+                                    pass
+
+                                else:
+                                    # Allumer la prise
+                                    prise_data.update({'isOn': False})
+
+                                    commande_allumer = f'mosquitto_pub -d -t cmnd/{prise_id}/power -m "1"'
+                                    subprocess.run(commande_allumer, shell=True)
+                                    print("Valeur actuel (enfonction de la couleur et heure)de la prise:", valeur)
+
+                                    pass
+
+                            if prise_data.get('isManualOn') is not None:
+                                print("Il est maintenant l'heure d'allumage. Envoi de la commande...")
 
                                 commande_allumer = f'mosquitto_pub -d -t cmnd/{prise_id}/power -m "0"'
+
                                 subprocess.run(commande_allumer, shell=True)
-                                pass
 
-                            else:
-                                # Allumer la prise
-                                prise_data.update({'isOn': False})
+                                heure_allumage = prise_data.get('isManualOn')
+                                heure_actuelle = datetime.datetime.now().time()
 
-                                commande_allumer = f'mosquitto_pub -d -t cmnd/{prise_id}/power -m "1"'
-                                subprocess.run(commande_allumer, shell=True)
-                                pass
+                                heure_allumage_dt = datetime.datetime.strptime(heure_allumage, '%H:%M').time()
+                                difference = timedelta(hours=heure_actuelle.hour, minutes=heure_actuelle.minute,seconds=heure_actuelle.second) - timedelta(hours=heure_allumage_dt.hour, minutes=heure_allumage_dt.minute,seconds=heure_allumage_dt.second)
 
-                            # Afficher la valeur de la prise
-                            print("Valeur actuel (enfonction de la couleur et heure)de la prise:", valeur)
+                                # Comparer la différence avec la marge de 15 secondes
+                                marge = timedelta(seconds=15)
+                                if abs(difference) <= marge:
+                                    prise_data.update({'isManualOn': None})
 
                             if prise_data != previous_data.get(user_id, {}).get(prise_id):
 
@@ -202,6 +227,7 @@ def process_user_data(users_data, previous_data):
                     print("Donnée utilisateur:", user_data)
     else:
         print("Aucun utilisateur trouvé.")
+
 
 def main():
     previous_data = {}
@@ -283,7 +309,6 @@ async def send_notification(message):
         print(f"Channel with ID {channel_id} not found.")
 
 
-
 async def main_loop():
     previous_data = {}
     crash_count = 0  # Compteur de crashes
@@ -303,11 +328,13 @@ async def main_loop():
         await send_notification(f"Le code a crashé {MAX_CRASH_COUNT} fois d'affilée. Arrêt du programme.")
         await sys.exit()
 
+
 # Définition de l'événement 'on_ready'
 @client.event
 async def on_ready():
     print(f'Logged in as {client.user}')
     client.loop.create_task(main_loop())
+
 
 # Démarrage du bot
 async def bot_start():
