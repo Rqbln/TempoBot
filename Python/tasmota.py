@@ -11,6 +11,7 @@ from firebase_admin import db
 import firebase_admin
 from datetime import datetime, timedelta
 import datetime
+
 # Initialization de Firebase
 cred = credentials.Certificate("tempobot-406fc-firebase-adminsdk-o6bkq-a1ab9cdc76.json")
 firebase_admin.initialize_app(cred, {
@@ -95,6 +96,9 @@ def recup_val_statutJ():
         return None, None
 
 
+
+
+
 def process_user_data(users_data, previous_data):
     # Vérifier s'il y a des utilisateurs
     valeur = True
@@ -121,42 +125,81 @@ def process_user_data(users_data, previous_data):
                             print("Prise:", prise_id)
 
                             if prise_data.get('isManualOn') is None:
+
                                 print("Statut 'isManualOn' indisponible ou non visible. Passage à la suite.")
-                                # Récupérer les valeurs de la prise en fonction de l'état du Tempo et de l'heure creuse/pleine
-                                if creuses == 'pleines':
-                                    if couleurJ == 'TEMPO_BLEU':
-                                        valeur = prise_data.get('pleines_bleu')
-                                    elif couleurJ == 'TEMPO_BLANC':
-                                        valeur = prise_data.get('pleines_blanc')
-                                    elif couleurJ == 'TEMPO_ROUGE':
-                                        valeur = prise_data.get('pleines_rouge')
-                                else:  # creuses == 'creuses'
-                                    if couleurJ == 'TEMPO_BLEU':
-                                        valeur = prise_data.get('creuses_bleu')
-                                    elif couleurJ == 'TEMPO_BLANC':
-                                        valeur = prise_data.get('creuses_blanc')
-                                    elif couleurJ == 'TEMPO_ROUGE':
-                                        valeur = prise_data.get('creuses_rouge')
-                                # Vérifier si les données ont changé
 
-                                if valeur is True:
-                                    # Allumer la prise
-                                    prise_data.update({'isOn': True})
-                                    commande_allumer = f'mosquitto_pub -d -t cmnd/{prise_id}/power -m "0"'
-                                    subprocess.run(commande_allumer, shell=True)
-                                    print("Valeur actuel (enfonction de la couleur et heure)de la prise:", valeur)
+                                # faire la meme que MAnual
 
-                                    pass
+                                jour_actuel = jour_semaine_fr(date.today())
 
-                                else:
-                                    # Allumer la prise
-                                    prise_data.update({'isOn': False})
+                                jours_semaine = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi",
+                                                 "Dimanche"]
+                                condition_satisfaite = False
 
-                                    commande_allumer = f'mosquitto_pub -d -t cmnd/{prise_id}/power -m "1"'
-                                    subprocess.run(commande_allumer, shell=True)
-                                    print("Valeur actuel (enfonction de la couleur et heure)de la prise:", valeur)
+                                for jour in jours_semaine:
+                                    valeur_jour = prise_data.get(jour)
 
-                                    pass
+
+                                    if jour_actuel == jour and valeur_jour is not None:
+
+                                        heure_debut = datetime.datetime.strptime(valeur_jour.split('-')[0].strip(),
+                                                                                 '%H:%M').time()
+                                        heure_fin = datetime.datetime.strptime(valeur_jour.split('-')[1].strip(),
+                                                                               '%H:%M').time()
+                                        heure_actuelle = datetime.datetime.now().time()
+
+                                        date_actuelle = datetime.datetime.now().date()
+                                        heure_actuelle_dt = datetime.datetime.combine(date_actuelle, heure_actuelle)
+
+                                        if heure_debut <= heure_actuelle_dt.time() <= heure_fin:
+                                            print("Commande perso envoyer")
+
+                                            commande_allumer = f'mosquitto_pub -d -t cmnd/{prise_id}/power -m "0"'
+                                            subprocess.run(commande_allumer, shell=True)
+                                            condition_satisfaite = True
+
+                                        else :
+                                            commande_allumer = f'mosquitto_pub -d -t cmnd/{prise_id}/power -m "1"'
+                                            subprocess.run(commande_allumer, shell=True)
+                                            condition_satisfaite = True
+
+
+
+                                if not condition_satisfaite:
+
+                                    if creuses == 'pleines':
+                                        if couleurJ == 'TEMPO_BLEU':
+                                            valeur = prise_data.get('pleines_bleu')
+                                        elif couleurJ == 'TEMPO_BLANC':
+                                            valeur = prise_data.get('pleines_blanc')
+                                        elif couleurJ == 'TEMPO_ROUGE':
+                                            valeur = prise_data.get('pleines_rouge')
+                                    else:  # creuses == 'creuses'
+                                        if couleurJ == 'TEMPO_BLEU':
+                                            valeur = prise_data.get('creuses_bleu')
+                                        elif couleurJ == 'TEMPO_BLANC':
+                                            valeur = prise_data.get('creuses_blanc')
+                                        elif couleurJ == 'TEMPO_ROUGE':
+                                            valeur = prise_data.get('creuses_rouge')
+
+                                    if valeur is True:
+                                        # Allumer la prise
+                                        prise_data.update({'isOn': True})
+                                        commande_allumer = f'mosquitto_pub -d -t cmnd/{prise_id}/power -m "0"'
+                                        subprocess.run(commande_allumer, shell=True)
+                                        print("Valeur actuel (enfonction de la couleur et heure)de la prise:", valeur)
+
+                                        pass
+
+                                    else:
+                                        # Allumer la prise
+                                        prise_data.update({'isOn': False})
+
+                                        commande_allumer = f'mosquitto_pub -d -t cmnd/{prise_id}/power -m "1"'
+                                        subprocess.run(commande_allumer, shell=True)
+                                        print("Valeur actuel (enfonction de la couleur et heure)de la prise:", valeur)
+
+                                        pass
 
                             if prise_data.get('isManualOn') is not None:
                                 print("Il est maintenant l'heure d'allumage. Envoi de la commande...")
@@ -169,7 +212,10 @@ def process_user_data(users_data, previous_data):
                                 heure_actuelle = datetime.datetime.now().time()
 
                                 heure_allumage_dt = datetime.datetime.strptime(heure_allumage, '%H:%M').time()
-                                difference = timedelta(hours=heure_actuelle.hour, minutes=heure_actuelle.minute,seconds=heure_actuelle.second) - timedelta(hours=heure_allumage_dt.hour, minutes=heure_allumage_dt.minute,seconds=heure_allumage_dt.second)
+                                difference = timedelta(hours=heure_actuelle.hour, minutes=heure_actuelle.minute,
+                                                       seconds=heure_actuelle.second) - timedelta(
+                                    hours=heure_allumage_dt.hour, minutes=heure_allumage_dt.minute,
+                                    seconds=heure_allumage_dt.second)
 
                                 # Comparer la différence avec la marge de 15 secondes
                                 marge = timedelta(seconds=15)
