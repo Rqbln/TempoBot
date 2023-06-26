@@ -154,12 +154,12 @@ def process_user_data(users_data, previous_data):
                                         if heure_debut <= heure_actuelle_dt.time() <= heure_fin:
                                             print("Commande perso envoyer")
 
-                                            commande_allumer = f'mosquitto_pub -d -t cmnd/{prise_id}/power -m "0"'
+                                            commande_allumer = f'mosquitto_pub -d -t cmnd/{prise_id}/power -m "1"'
                                             subprocess.run(commande_allumer, shell=True)
                                             condition_satisfaite = True
 
                                         else :
-                                            commande_allumer = f'mosquitto_pub -d -t cmnd/{prise_id}/power -m "1"'
+                                            commande_allumer = f'mosquitto_pub -d -t cmnd/{prise_id}/power -m "0"'
                                             subprocess.run(commande_allumer, shell=True)
                                             condition_satisfaite = True
 
@@ -185,7 +185,7 @@ def process_user_data(users_data, previous_data):
                                     if valeur is True:
                                         # Allumer la prise
                                         prise_data.update({'isOn': True})
-                                        commande_allumer = f'mosquitto_pub -d -t cmnd/{prise_id}/power -m "0"'
+                                        commande_allumer = f'mosquitto_pub -d -t cmnd/{prise_id}/power -m "1"'
                                         subprocess.run(commande_allumer, shell=True)
                                         print("Valeur actuel (enfonction de la couleur et heure)de la prise:", valeur)
 
@@ -195,7 +195,7 @@ def process_user_data(users_data, previous_data):
                                         # Allumer la prise
                                         prise_data.update({'isOn': False})
 
-                                        commande_allumer = f'mosquitto_pub -d -t cmnd/{prise_id}/power -m "1"'
+                                        commande_allumer = f'mosquitto_pub -d -t cmnd/{prise_id}/power -m "0"'
                                         subprocess.run(commande_allumer, shell=True)
                                         print("Valeur actuel (enfonction de la couleur et heure)de la prise:", valeur)
 
@@ -204,7 +204,7 @@ def process_user_data(users_data, previous_data):
                             if prise_data.get('isManualOn') is not None:
                                 print("Il est maintenant l'heure d'allumage. Envoi de la commande...")
 
-                                commande_allumer = f'mosquitto_pub -d -t cmnd/{prise_id}/power -m "0"'
+                                commande_allumer = f'mosquitto_pub -d -t cmnd/{prise_id}/power -m "1"'
 
                                 subprocess.run(commande_allumer, shell=True)
 
