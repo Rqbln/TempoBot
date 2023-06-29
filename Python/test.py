@@ -1,25 +1,25 @@
-import subprocess
+import pyautogui
+import math
+import time
 
-def set_power():
-    topic = input("Entrez le nom du topic : ")
-    status = input("Voulez-vous allumer ou éteindre la prise ? (ON/OFF) : ").upper()
+# Le centre du cercle
+center_x = 981
+center_y = 547
 
-    if status == "ON":
-        message = "1"
-    elif status == "OFF":
-        message = "0"
-    else:
-        print("Erreur : statut invalide")
-        return
+# Le rayon du cercle
+radius = 400
 
-    command = f"mosquitto_pub -d -t cmnd/tasmota_{topic}/power -m '{message}'"
+# Le nombre de pas pour dessiner le cercle (plus il est élevé, plus le cercle sera lisse)
+steps = 50
 
-    result = subprocess.run(command, shell=True)
-    if result.returncode != 0:
-        print("Erreur : impossible de contrôler la prise Tasmota")
-    else:
-        print(f"Prise Tasmota sur le topic '{topic}' : {status}")
+# Attendez quelques secondes avant de commencer (pour que vous puissiez lâcher la souris)
+time.sleep(1)
 
+for i in range(steps+5):
+    # Calculez les coordonnées du point sur le cercle
+    angle = math.pi * 2 * i / steps
+    x = center_x + radius * math.cos(angle)
+    y = center_y + radius * math.sin(angle)
 
-if __name__ == "__main__":
-    set_power()
+    # Déplacez la souris vers le point
+    pyautogui.moveTo(x, y, duration=0.1)
