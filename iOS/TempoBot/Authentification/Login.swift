@@ -8,85 +8,197 @@
 import SwiftUI
 import Firebase
 
+extension Color {
+    static let darkBlue = Color(red: 60 / 255, green: 60 / 255, blue: 230 / 255)
+
+}
+
+extension View {
+    func underlineTextField() -> some View {
+        self
+            .padding(.vertical, 10)
+            .overlay(Rectangle().frame(height: 2).padding(.top, 35))
+            .foregroundColor(.darkBlue)
+            .padding(.bottom, 10)
+    }
+}
+
+extension View {
+    func roundedTextField(texte : String, colorScheme: ColorScheme, color : Color) -> some View {
+        return ZStack{
+            self
+            
+            RoundedRectangle(cornerRadius: 20, style : .continuous)
+                .stroke()
+                .foregroundColor(color)
+                .frame(maxWidth : .infinity, maxHeight : 65)
+                .padding(.horizontal)
+                
+            
+            HStack {
+                Text("\(texte)")
+                    .font(.system(size : 22))
+                    .foregroundColor(color)
+                   
+                    .padding(.horizontal)
+                    .background(colorScheme == .dark ? .black : .white)
+                    .padding(.horizontal, 30)
+                    .padding(.bottom, 70)
+                    .cornerRadius(15)
+                Spacer()
+                    .zIndex(1000)
+            }
+        }
+    }
+}
+
+
+
 struct Login: View {
     
+    @EnvironmentObject var datas : ReadDatas
+    var retrieve_email : String = ""
+    var retrieve_password : String = ""
             @State private var email: String = ""
             @State private var password: String = ""
+            @State private var verification: String = ""
             
-            @State private var isAuth: Bool = false
-            @State private var verification: String = "pas fait"
-            
-            @State private var UserIsLoggedIn: Bool = false
-            
+            @State var passwordVisible = false
+    @Environment(\.colorScheme) var colorScheme
             var body: some View {
                 
-                NavigationStack {
+                NavigationStack{
                     
                 ZStack{
-                    LinearGradient(colors: [ Color("Violet foncé"), Color("Bleu foncé")], startPoint: .leading, endPoint: .bottomTrailing)
-                        .ignoresSafeArea()
+                    
                     
                     VStack(spacing: 20){
                         Spacer()
                             // Username
                             TextField("Adresse électronique", text: $email)
-                                .padding()
-                                .background()
+                            .font(.system(size: 22))
                                 .cornerRadius(20.0)
                                 .frame(width: 300)
-                                .autocorrectionDisabled()
+                                .autocorrectionDisabled(true)
+                                .textInputAutocapitalization(.never)
+                                .multilineTextAlignment(.center)
+                                .roundedTextField(texte : "Email", colorScheme: colorScheme, color : .secondary)
                         
                             // Password
-                            SecureField("Mot de passe", text: $password)
-                                .padding()
-                                .background()
-                                .cornerRadius(20.0)
-                                .frame(width: 300)
-                                .autocorrectionDisabled()
-                        
-                        Button {
-                        login()
-                        } label: {
-                            Text("Se connecter")
-                                .padding()
-                                .background(.linearGradient(colors: [.blue, .purple], startPoint: .leading, endPoint: .trailing))
-                                .cornerRadius(15)
-                                .foregroundColor(.white)
+                        ZStack(alignment: .trailing) {
+                            if !passwordVisible {
+                                SecureField("Mot de passe", text: $password)
+                                    .font(.system(size: 22))
+                                    .cornerRadius(20.0)
+                                    .frame(width: 300)
+                                    .autocorrectionDisabled(true)
+                                    .textInputAutocapitalization(.never)
+                                    .multilineTextAlignment(.center)
                                 
+                                    .roundedTextField(texte : "Mot de passe", colorScheme: colorScheme, color : .secondary)
+                            }else{
+                                TextField("Mot de passe", text: $password)
+                                    .font(.system(size: 22))
+                                    .cornerRadius(20.0)
+                                    .frame(width: 300)
+                                    .autocorrectionDisabled(true)
+                                    .textInputAutocapitalization(.never)
+                                    .multilineTextAlignment(.center)
+                                
+                                    .roundedTextField(texte : "Mot de passe", colorScheme: colorScheme, color : .secondary)
+                            }
+                            Button {
+                                
+                                    passwordVisible.toggle()
+                            } label: {
+                                    Image(systemName: passwordVisible ? "eye" : "eye.slash")
+                                        .padding(.horizontal, 30)
+                                        .foregroundColor(.primary)
+                                        .font(.title2)
+                                
+                            }
+
                         }
                         
-                            NavigationLink("Vous n'avez pas de compte? Créez-en un", destination: SignUp())
+                        HStack{
+                            Spacer()
+                            Text("Mot de passe oublié ?")
+                                .padding(.horizontal)
+                                .foregroundColor(.darkBlue)
+                                .bold()
+                        }
+                        Button {
+                            
+                        login()
+                        } label: {
+                            ZStack {
+                                Text("Se connecter")
+                                    .fontWeight(.semibold)
+                                    .font(.title2)
+                                    .padding()
+                                    .foregroundColor(.white)
+                                    .zIndex(10)
+                                RoundedRectangle(cornerRadius: 20, style : .continuous)
+                                    .frame(maxWidth : .infinity, maxHeight : 65)
+                                    .padding(.horizontal)
+                                    .foregroundColor(.darkBlue)
+                            }
+                                
+                        }
+                        HStack(spacing : 5) {
+                            Text("Vous n'avez pas de compte ?")
+                            NavigationLink("Créez-en un", destination : SignUp())
+                                .foregroundColor(.darkBlue)
+                                .bold()
+                        }
+                            
+
+                        Text("\(verification)")
+                            .foregroundColor(verification == "Erreur : Vérifier votre mot de passe et votre adresse électronique" ? .red : .green)
+                            .font(.caption)
                         
                         Spacer()
-                        Text("\(verification)")
-                            .font(.largeTitle)
-                            .foregroundColor(.white)
+                        
+        
                             }
                         }
                                     
-                .navigationBarTitle("Login")
-                .navigationDestination(isPresented: $UserIsLoggedIn) {
+                .navigationTitle("Se connecter")
+                .navigationDestination(isPresented: $datas.UserIsLoggedIn) {
                         MainPage()
                     }
+                .onAppear(){
+                    email = retrieve_email
+                    password = retrieve_password
+                }
+                }
                 .navigationBarBackButtonHidden(true)
-                }
                 
-                }
-    func login(){
-        Auth.auth().signIn(withEmail: email, password: password){result, error in
-            if error != nil{
+            
+            }
+        
+    
+    func login() {
+        Auth.auth().signIn(withEmail: email, password: password) { result, error in
+            if error != nil {
                 print(error!.localizedDescription)
-                verification = "Erreur"
-            }else{
-                UserIsLoggedIn = true
-                verification = "Succès"
+                verification = "Erreur : Vérifier votre mot de passe et votre adresse électronique"
+            } else {
+                    datas.uid = Auth.auth().currentUser?.uid
+                    verification = ""
+                    email = ""
+                    password = ""
+                    datas.save_uid()
+                    datas.prises = []
+                    datas.UserIsLoggedIn = true   
             }
         }
-            }
-        }
+    }
+}
+    
 
 struct Login_Previews: PreviewProvider {
     static var previews: some View {
-        Login()
+        Login(retrieve_email: "", retrieve_password: "").environmentObject(ReadDatas())
     }
 }

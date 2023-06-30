@@ -7,12 +7,20 @@
 import SwiftUI
 import Firebase
 struct HeurePickerView : View {
+    @EnvironmentObject var datas : ReadDatas
     let ref = Database.database().reference()
     @State private var allumageDate = Date.now
     @State private var extinctionDate = Date.now
     @State private var isActive = false
     var jour : String
     var prise : prise
+    private var priseRef: DatabaseReference {
+        if datas.nomPrise[prise.id.uuidString] != nil {
+            return ref.child("data/users").child(String(datas.uid!)).child("prises/\(String(describing: datas.nomPrise[prise.id.uuidString]!))")
+        } else {
+            return ref.child("data/users").child(String(datas.uid!)).child("prises/\(String(describing : prise.id))")
+        }
+    }
 
     var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
@@ -20,11 +28,40 @@ struct HeurePickerView : View {
         return formatter
     }
 
+    private func updateDatabase() {
+        if isActive {
+            priseRef.child(jour).setValue("\(dateFormatter.string(from: allumageDate))" + " - " + "\(dateFormatter.string(from: extinctionDate))")
+        } else {
+            priseRef.child(jour).removeValue()
+        }
+    }
+    
+    private func startListening() {
+        priseRef.child(jour).observe(.value) { snapshot in
+            if let value = snapshot.value as? String {
+                isActive = true
+                let times = value.split(separator: "-")
+                if let allumage = dateFormatter.date(from: String(times[0]).trimmingCharacters(in: .whitespaces)),
+                   let extinction = dateFormatter.date(from: String(times[1]).trimmingCharacters(in: .whitespaces)) {
+                    allumageDate = allumage
+                    extinctionDate = extinction
+                }
+            } else {
+                isActive = false
+            }
+        }
+    }
+
+
     var body: some View {
+
         VStack{
-            Toggle("Activer les horaires personnalisées pour " + jour.lowercased(), isOn: $isActive)
-                .font(.system(size: 15))
-            Group{
+            Toggle("Activer les horaires personnalisées le " + jour.lowercased(), isOn: $isActive)
+            
+                .onChange(of: isActive) { _ in
+                        updateDatabase()
+                    }
+            if isActive{
                 Text(jour)
                     .font(.title2)
                 
@@ -47,20 +84,20 @@ struct HeurePickerView : View {
                         .disabled(!isActive) // désactive si isActive est faux
                 }
                 
-                
-                Text("Heure d'allumage : \(allumageDate, formatter: dateFormatter)")
-                    .font(.footnote)
-                Text("Heure d'extinction : \(extinctionDate, formatter: dateFormatter)")
-                    .font(.footnote)
                 Divider()
-                    
+                    .onChange(of: allumageDate) { _ in
+                        updateDatabase()
+                    }
+                    .onChange(of: extinctionDate) { _ in
+                        updateDatabase()
+                    }
+
+
             }
-            .opacity(isActive ? 1.0 : 0.5) // réduit l'opacité si isActive est faux
         }
-        .onAppear{
-            if isActive{
-                
-            }
+        .padding()
+        .onAppear {
+            startListening()
         }
         
     }
@@ -69,5 +106,6 @@ struct HeurePickerView : View {
 struct HeurePickerView_Previews: PreviewProvider {
     static var previews: some View {
         HeurePickerView(jour: "Lundi", prise: prise(nom: "test", creuses_bleu: false, pleines_bleu: false, creuses_blanc: false, pleines_blanc: false, creuses_rouge: false, pleines_rouge: false, isOn: false))
+            .environmentObject(ReadDatas())
     }
 }

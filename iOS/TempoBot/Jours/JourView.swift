@@ -13,8 +13,9 @@ struct JourView: View {
     
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 20, style : .continuous)
-                .frame(width: 400, height: 100)
+            RoundedRectangle(cornerRadius: 15, style : .continuous)
+                
+                .frame(maxWidth: .infinity, maxHeight: 80)
                 .foregroundColor(today.couleur)
                 .overlay(
                     HStack{
@@ -22,15 +23,16 @@ struct JourView: View {
                             Text("\(today.date)")
                             Text("\(today.couleur_jour)")
                         }
+                        .font(.callout)
                         
                         Spacer()
                         Text("\(jour)")
-                            .font(.title)
+                            .font(.title2)
                         Spacer()
                         today.icone
-                            .font(.system(size: 60))
+                            .font(.system(size: 45))
                     }
-                        .padding()
+                        .padding(.horizontal, 20)
                         .foregroundColor(.white)
                 )
         }

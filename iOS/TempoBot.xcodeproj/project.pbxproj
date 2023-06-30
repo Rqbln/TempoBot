@@ -7,9 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B037E842A366049000958B1 /* ConnexionReseau2View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B037E832A366049000958B1 /* ConnexionReseau2View.swift */; };
+		1B037E862A366D86000958B1 /* NetworkDiscovery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B037E852A366D86000958B1 /* NetworkDiscovery.swift */; };
 		1B37F74A29B3E0A200BDAEC9 /* HeurePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B37F74929B3E0A200BDAEC9 /* HeurePickerView.swift */; };
-		1B6E96D629B40AD6003B4133 /* ParametresAvancesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B6E96D529B40AD6003B4133 /* ParametresAvancesView.swift */; };
-		1B98A6D929B4F72E00C25335 /* ScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B98A6D829B4F72E00C25335 /* ScannerView.swift */; };
+		1BA0C8012A479C3100219EC5 /* ConnectionStateChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA0C8002A479C3100219EC5 /* ConnectionStateChecker.swift */; };
+		1BA0C8032A479C4700219EC5 /* NoConnectionAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA0C8022A479C4700219EC5 /* NoConnectionAlertView.swift */; };
+		1BADD30B2A41084B00F0B655 /* CocoaAsyncSocket in Frameworks */ = {isa = PBXBuildFile; productRef = 1BADD30A2A41084B00F0B655 /* CocoaAsyncSocket */; };
+		1BC8237A2A45C62C0046988A /* IsManualOnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BC823792A45C62C0046988A /* IsManualOnView.swift */; };
 		1BCCC88E299572760022B843 /* MainPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BCCC88D299572760022B843 /* MainPage.swift */; };
 		1BD6D6442996BAD700D7BAC5 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1BD6D6432996BAD700D7BAC5 /* FirebaseAuth */; };
 		1BD6D6462996BAD700D7BAC5 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 1BD6D6452996BAD700D7BAC5 /* FirebaseFirestore */; };
@@ -18,10 +22,15 @@
 		1BD6D64E2996C23000D7BAC5 /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD6D64D2996C23000D7BAC5 /* SignUp.swift */; };
 		1BD6D6552996E4D500D7BAC5 /* setupJour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD6D6542996E4D500D7BAC5 /* setupJour.swift */; };
 		1BD6D6572996F00F00D7BAC5 /* JourView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD6D6562996F00F00D7BAC5 /* JourView.swift */; };
+		1BD9DD392A45EC770070D00C /* PriseList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD9DD382A45EC770070D00C /* PriseList.swift */; };
 		1BDAD4FD2999091F00161B6E /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 1BDAD4FC2999091F00161B6E /* FirebaseAnalytics */; };
 		1BDAD4FF2999094300161B6E /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 1BDAD4FE2999094300161B6E /* FirebaseDatabase */; };
 		1BDCBC1229B2453A00608961 /* ReadDatas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDCBC1129B2453A00608961 /* ReadDatas.swift */; };
 		1BDCBC1429B2635E00608961 /* NouvellePriseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDCBC1329B2635E00608961 /* NouvellePriseView.swift */; };
+		1BDFFD222A34AFC8001ECC7A /* ConnexionReseauView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDFFD212A34AFC8001ECC7A /* ConnexionReseauView.swift */; };
+		1BE582CF29B64B9D00B3117A /* CompteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE582CE29B64B9D00B3117A /* CompteView.swift */; };
+		1BE582D129B668CB00B3117A /* HeuresPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE582D029B668CB00B3117A /* HeuresPickerView.swift */; };
+		1BEF85F42A41BBB8004040AD /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BEF85F32A41BBB8004040AD /* ImageView.swift */; };
 		1BF3C1A729B269E500F818FC /* setupPrise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF3C1A629B269E500F818FC /* setupPrise.swift */; };
 		1BF3C1AD29B26AB900F818FC /* InfoPriseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF3C1AC29B26AB900F818FC /* InfoPriseView.swift */; };
 		1BF867E22993E2480074C1ED /* TempoBotApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF867E12993E2480074C1ED /* TempoBotApp.swift */; };
@@ -31,17 +40,26 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1B037E832A366049000958B1 /* ConnexionReseau2View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnexionReseau2View.swift; sourceTree = "<group>"; };
+		1B037E852A366D86000958B1 /* NetworkDiscovery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkDiscovery.swift; sourceTree = "<group>"; };
+		1B04B2EA2A0EA6150063C6B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		1B37F74929B3E0A200BDAEC9 /* HeurePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeurePickerView.swift; sourceTree = "<group>"; };
-		1B6E96D529B40AD6003B4133 /* ParametresAvancesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParametresAvancesView.swift; sourceTree = "<group>"; };
-		1B98A6D829B4F72E00C25335 /* ScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerView.swift; sourceTree = "<group>"; };
+		1BA0C8002A479C3100219EC5 /* ConnectionStateChecker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionStateChecker.swift; sourceTree = "<group>"; };
+		1BA0C8022A479C4700219EC5 /* NoConnectionAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoConnectionAlertView.swift; sourceTree = "<group>"; };
+		1BC823792A45C62C0046988A /* IsManualOnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsManualOnView.swift; sourceTree = "<group>"; };
 		1BCCC88D299572760022B843 /* MainPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPage.swift; sourceTree = "<group>"; };
 		1BD6D6492996BFD400D7BAC5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1BD6D64B2996C1DC00D7BAC5 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		1BD6D64D2996C23000D7BAC5 /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
 		1BD6D6542996E4D500D7BAC5 /* setupJour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = setupJour.swift; sourceTree = "<group>"; };
 		1BD6D6562996F00F00D7BAC5 /* JourView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourView.swift; sourceTree = "<group>"; };
+		1BD9DD382A45EC770070D00C /* PriseList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriseList.swift; sourceTree = "<group>"; };
 		1BDCBC1129B2453A00608961 /* ReadDatas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadDatas.swift; sourceTree = "<group>"; };
 		1BDCBC1329B2635E00608961 /* NouvellePriseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NouvellePriseView.swift; sourceTree = "<group>"; };
+		1BDFFD212A34AFC8001ECC7A /* ConnexionReseauView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnexionReseauView.swift; sourceTree = "<group>"; };
+		1BE582CE29B64B9D00B3117A /* CompteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompteView.swift; sourceTree = "<group>"; };
+		1BE582D029B668CB00B3117A /* HeuresPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeuresPickerView.swift; sourceTree = "<group>"; };
+		1BEF85F32A41BBB8004040AD /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
 		1BF3C1A629B269E500F818FC /* setupPrise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = setupPrise.swift; sourceTree = "<group>"; };
 		1BF3C1AC29B26AB900F818FC /* InfoPriseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoPriseView.swift; sourceTree = "<group>"; };
 		1BF867DE2993E2480074C1ED /* TempoBot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TempoBot.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -57,6 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1BADD30B2A41084B00F0B655 /* CocoaAsyncSocket in Frameworks */,
 				1BD6D6442996BAD700D7BAC5 /* FirebaseAuth in Frameworks */,
 				1BD6D6462996BAD700D7BAC5 /* FirebaseFirestore in Frameworks */,
 				1BDAD4FF2999094300161B6E /* FirebaseDatabase in Frameworks */,
@@ -67,12 +86,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1B98A6DA29B4F73400C25335 /* Scanner */ = {
+		1BA0C8042A47A34400219EC5 /* Reseau */ = {
 			isa = PBXGroup;
 			children = (
-				1B98A6D829B4F72E00C25335 /* ScannerView.swift */,
+				1B037E852A366D86000958B1 /* NetworkDiscovery.swift */,
+				1BA0C8002A479C3100219EC5 /* ConnectionStateChecker.swift */,
+				1BA0C8022A479C4700219EC5 /* NoConnectionAlertView.swift */,
 			);
-			path = Scanner;
+			path = Reseau;
 			sourceTree = "<group>";
 		};
 		1BD6D6532996E48B00D7BAC5 /* Jours */ = {
@@ -91,14 +112,24 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		1BDFFD1C2A34ADA6001ECC7A /* Connexion */ = {
+			isa = PBXGroup;
+			children = (
+				1BDFFD212A34AFC8001ECC7A /* ConnexionReseauView.swift */,
+				1B037E832A366049000958B1 /* ConnexionReseau2View.swift */,
+				1BDCBC1329B2635E00608961 /* NouvellePriseView.swift */,
+			);
+			path = Connexion;
+			sourceTree = "<group>";
+		};
 		1BF3C1A829B269EB00F818FC /* Prise */ = {
 			isa = PBXGroup;
 			children = (
-				1BDCBC1329B2635E00608961 /* NouvellePriseView.swift */,
-				1B6E96D529B40AD6003B4133 /* ParametresAvancesView.swift */,
+				1BE582D029B668CB00B3117A /* HeuresPickerView.swift */,
 				1B37F74929B3E0A200BDAEC9 /* HeurePickerView.swift */,
 				1BF3C1A629B269E500F818FC /* setupPrise.swift */,
 				1BF3C1AC29B26AB900F818FC /* InfoPriseView.swift */,
+				1BC823792A45C62C0046988A /* IsManualOnView.swift */,
 			);
 			path = Prise;
 			sourceTree = "<group>";
@@ -106,8 +137,10 @@
 		1BF3C1A929B269FE00F818FC /* Authentification */ = {
 			isa = PBXGroup;
 			children = (
-				1BD6D64B2996C1DC00D7BAC5 /* Login.swift */,
 				1BD6D64D2996C23000D7BAC5 /* SignUp.swift */,
+				1BD6D64B2996C1DC00D7BAC5 /* Login.swift */,
+				1BEF85F32A41BBB8004040AD /* ImageView.swift */,
+				1BE582CE29B64B9D00B3117A /* CompteView.swift */,
 			);
 			path = Authentification;
 			sourceTree = "<group>";
@@ -132,14 +165,17 @@
 		1BF867E02993E2480074C1ED /* TempoBot */ = {
 			isa = PBXGroup;
 			children = (
+				1B04B2EA2A0EA6150063C6B4 /* Info.plist */,
+				1BF867E12993E2480074C1ED /* TempoBotApp.swift */,
 				1BF867E32993E2480074C1ED /* ContentView.swift */,
 				1BCCC88D299572760022B843 /* MainPage.swift */,
-				1B98A6DA29B4F73400C25335 /* Scanner */,
+				1BD9DD382A45EC770070D00C /* PriseList.swift */,
 				1BDCBC1129B2453A00608961 /* ReadDatas.swift */,
-				1BF867E12993E2480074C1ED /* TempoBotApp.swift */,
+				1BA0C8042A47A34400219EC5 /* Reseau */,
+				1BDFFD1C2A34ADA6001ECC7A /* Connexion */,
+				1BF3C1A829B269EB00F818FC /* Prise */,
 				1BF3C1A929B269FE00F818FC /* Authentification */,
 				1BD6D6532996E48B00D7BAC5 /* Jours */,
-				1BF3C1A829B269EB00F818FC /* Prise */,
 				1BF867E52993E2490074C1ED /* Assets.xcassets */,
 				1BD6D6492996BFD400D7BAC5 /* GoogleService-Info.plist */,
 				1BF867E72993E2490074C1ED /* TempoBot.entitlements */,
@@ -177,6 +213,7 @@
 				1BD6D6452996BAD700D7BAC5 /* FirebaseFirestore */,
 				1BDAD4FC2999091F00161B6E /* FirebaseAnalytics */,
 				1BDAD4FE2999094300161B6E /* FirebaseDatabase */,
+				1BADD30A2A41084B00F0B655 /* CocoaAsyncSocket */,
 			);
 			productName = TempoBot;
 			productReference = 1BF867DE2993E2480074C1ED /* TempoBot.app */;
@@ -190,7 +227,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1420;
-				LastUpgradeCheck = 1420;
+				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					1BF867DD2993E2480074C1ED = {
 						CreatedOnToolsVersion = 14.2;
@@ -208,6 +245,7 @@
 			mainGroup = 1BF867D52993E2480074C1ED;
 			packageReferences = (
 				1BD6D6422996BAD700D7BAC5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				1BADD3092A41084B00F0B655 /* XCRemoteSwiftPackageReference "CocoaAsyncSocket" */,
 			);
 			productRefGroup = 1BF867DF2993E2480074C1ED /* Products */;
 			projectDirPath = "";
@@ -238,18 +276,26 @@
 			files = (
 				1BF867E42993E2480074C1ED /* ContentView.swift in Sources */,
 				1BF867E22993E2480074C1ED /* TempoBotApp.swift in Sources */,
+				1BE582CF29B64B9D00B3117A /* CompteView.swift in Sources */,
+				1B037E842A366049000958B1 /* ConnexionReseau2View.swift in Sources */,
 				1BCCC88E299572760022B843 /* MainPage.swift in Sources */,
+				1BC8237A2A45C62C0046988A /* IsManualOnView.swift in Sources */,
 				1BDCBC1229B2453A00608961 /* ReadDatas.swift in Sources */,
+				1BEF85F42A41BBB8004040AD /* ImageView.swift in Sources */,
+				1BA0C8032A479C4700219EC5 /* NoConnectionAlertView.swift in Sources */,
 				1BD6D6552996E4D500D7BAC5 /* setupJour.swift in Sources */,
-				1B98A6D929B4F72E00C25335 /* ScannerView.swift in Sources */,
+				1BD9DD392A45EC770070D00C /* PriseList.swift in Sources */,
+				1BA0C8012A479C3100219EC5 /* ConnectionStateChecker.swift in Sources */,
+				1BE582D129B668CB00B3117A /* HeuresPickerView.swift in Sources */,
 				1BDCBC1429B2635E00608961 /* NouvellePriseView.swift in Sources */,
 				1BD6D64C2996C1DC00D7BAC5 /* Login.swift in Sources */,
+				1B037E862A366D86000958B1 /* NetworkDiscovery.swift in Sources */,
 				1BF3C1AD29B26AB900F818FC /* InfoPriseView.swift in Sources */,
 				1BD6D64E2996C23000D7BAC5 /* SignUp.swift in Sources */,
 				1BD6D6572996F00F00D7BAC5 /* JourView.swift in Sources */,
 				1B37F74A29B3E0A200BDAEC9 /* HeurePickerView.swift in Sources */,
+				1BDFFD222A34AFC8001ECC7A /* ConnexionReseauView.swift in Sources */,
 				1BF3C1A729B269E500F818FC /* setupPrise.swift in Sources */,
-				1B6E96D629B40AD6003B4133 /* ParametresAvancesView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -289,6 +335,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -347,6 +394,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -371,12 +419,17 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = TempoBot/TempoBot.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"TempoBot/Preview Content\"";
 				DEVELOPMENT_TEAM = RUP46893UX;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TempoBot/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "L'application à besoin du SSID pour connecter la prise au réseau";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -386,14 +439,15 @@
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = Gainder.TempoBot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -408,12 +462,17 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = TempoBot/TempoBot.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"TempoBot/Preview Content\"";
 				DEVELOPMENT_TEAM = RUP46893UX;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TempoBot/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "L'application à besoin du SSID pour connecter la prise au réseau";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -423,14 +482,15 @@
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = Gainder.TempoBot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = auto;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -463,6 +523,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		1BADD3092A41084B00F0B655 /* XCRemoteSwiftPackageReference "CocoaAsyncSocket" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/robbiehanson/CocoaAsyncSocket.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
 		1BD6D6422996BAD700D7BAC5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
@@ -474,6 +542,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		1BADD30A2A41084B00F0B655 /* CocoaAsyncSocket */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1BADD3092A41084B00F0B655 /* XCRemoteSwiftPackageReference "CocoaAsyncSocket" */;
+			productName = CocoaAsyncSocket;
+		};
 		1BD6D6432996BAD700D7BAC5 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 1BD6D6422996BAD700D7BAC5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

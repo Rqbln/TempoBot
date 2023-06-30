@@ -14,76 +14,123 @@ struct SignUp: View {
             @State private var password: String = ""
             
             @State private var isAuth: Bool = false
-            @State private var verification: String = "pas fait"
+            @State private var verification: String = ""
             
-        
+            @State var passwordVisible = false
+    @EnvironmentObject var datas : ReadDatas
+            @Environment(\.colorScheme) var colorScheme
             var body: some View {
                 
                 NavigationStack {
                     
                 ZStack{
-                    LinearGradient(colors: [ Color("Violet foncé"), Color("Bleu foncé")], startPoint: .leading, endPoint: .bottomTrailing)
-                        .ignoresSafeArea()
                     
                         VStack(spacing: 20) {
                             Spacer()
                             // Username
                             TextField("Adresse électronique", text: $email)
-                                .padding()
-                                .background()
+                            .font(.system(size: 22))
                                 .cornerRadius(20.0)
                                 .frame(width: 300)
-                                .autocorrectionDisabled()
-                            
+                                .autocorrectionDisabled(true)
+                                .textInputAutocapitalization(.never)
+                                .multilineTextAlignment(.center)
+                                .roundedTextField(texte: "Email", colorScheme: colorScheme, color : .secondary)
+                        
                             // Password
-                            SecureField("Mot de passe", text: $password)
-                                .padding()
-                                .background()
-                                .cornerRadius(20.0)
-                                .frame(width: 300)
-                                .autocorrectionDisabled()
-                            
+                            ZStack(alignment: .trailing) {
+                                if !passwordVisible {
+                                    SecureField("Mot de passe", text: $password)
+                                        .font(.system(size: 22))
+                                        .cornerRadius(20.0)
+                                        .frame(width: 300)
+                                        .autocorrectionDisabled(true)
+                                        .textInputAutocapitalization(.never)
+                                        .multilineTextAlignment(.center)
+                                    
+                                        .roundedTextField(texte : "Mot de passe", colorScheme: colorScheme, color : .secondary)
+                                }else{
+                                    TextField("Mot de passe", text: $password)
+                                        .font(.system(size: 22))
+                                        .cornerRadius(20.0)
+                                        .frame(width: 300)
+                                        .autocorrectionDisabled(true)
+                                        .textInputAutocapitalization(.never)
+                                        .multilineTextAlignment(.center)
+                                    
+                                        .roundedTextField(texte : "Mot de passe", colorScheme: colorScheme, color : .secondary)
+                                }
+                                Button {
+                                    
+                                        passwordVisible.toggle()
+                                } label: {
+                                        Image(systemName: passwordVisible ? "eye" : "eye.slash")
+                                            .padding(.horizontal, 30)
+                                            .foregroundColor(.primary)
+                                            .font(.system(size: 24))
+                                    
+                                }
+
+                            }
+                            if verification != "" {
+                                Text("\(verification)")
+                            }
                             Button {
                             register()
                             } label: {
-                                Text("S'inscrire")
-                                    .padding()
-                                    .background(.linearGradient(colors: [.blue, .purple], startPoint: .leading, endPoint: .trailing))
-                                    .cornerRadius(15)
-                                    .foregroundColor(.white)
+                                ZStack {
+                                    Text("Créer un compte")
+                                        .fontWeight(.semibold)
+                                        .font(.title2)
+                                        .padding()
+                                        .foregroundColor(.white)
+                                        .zIndex(10)
+                                    RoundedRectangle(cornerRadius: 20, style : .continuous)
+                                        .frame(maxWidth : .infinity, maxHeight : 65)
+                                        .padding(.horizontal)
+                                        .foregroundColor(.darkBlue)
+                                }
                                     
                             }
-                            
-                            
-                                
-                                
-                            
-                            Spacer()
-                            Text("\(verification)")
-                                .font(.largeTitle)
-                                .foregroundColor(.white)
-                            
-                            
+                            HStack(spacing : 5) {
+                                Text("Vous avez déjà un compte ?")
+                                    .multilineTextAlignment(.center)
+                                NavigationLink("Connectez-vous", destination : Login())
+                                    .foregroundColor(.darkBlue)
+                                    .bold()
                             }
+                            Spacer()
+                            
                         }
-                .navigationBarTitle("SignUp")
+                    }
+                .navigationTitle("Créer un compte")
+                .navigationDestination(isPresented: $isAuth) {
+                    Login(retrieve_email: email, retrieve_password: password)
+                }
                     
                 }
+                .navigationBarBackButtonHidden(true)
                     }
     func register(){
         Auth.auth().createUser(withEmail: email, password: password) { result, error in
             if error != nil{
                 print (error!.localizedDescription)
-                verification = "Erreur"
+                if error!.localizedDescription == "The email address is already in use by another account." {
+                    verification = "Un autre compte utilise déjà cette addresse Email"
+                }
             }else{
-                verification = "Succès !"
+                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                isAuth = true
             }
                 }
             }
+    
+    
         }
 
 struct SignUp_Previews: PreviewProvider {
     static var previews: some View {
         SignUp()
+            .environmentObject(ReadDatas())
     }
 }

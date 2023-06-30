@@ -1,0 +1,128 @@
+2023-06-07 13:35:52 +0000  Initial pipeline context: <IDEDistributionProcessingPipelineContext: 0x2d117b0f0; archive(resolved)="<IDEArchive: 0x600025a5d140>", distributionTask(resolved)="2", distributionDestination(resolved)="1", distributionMethod(resolved)="<IDEDistributionMethodDevelopmentSigned: 0x60009b278570>", team(resolved)="<IDEProvisioningDisambiguatableBasicTeam: 0x6000065b0b40; teamID='RUP46893UX', teamName='ROBIN LUCAS VIRGILE QUERIAUX', teamType='Individual', username='rqbln@icloud.com', isFreeProvisioningTeam='0'>">
+	Chain (14, self inclusive):
+	<IDEDistributionProcessingPipelineContext: 0x2d117b0f0; archive = "<IDEArchive: 0x600025a5d140>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x60009b278570>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x6000065b0b40; teamID='RUP46893UX', teamName='ROBIN LUCAS VIRGILE QUERIAUX', teamType='Individual', username='rqbln@icloud.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionProcessingPipelineContext: 0x2d1178880; archive = "<IDEArchive: 0x600025a5d140>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x60009b278570>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x6000065b0b40; teamID='RUP46893UX', teamName='ROBIN LUCAS VIRGILE QUERIAUX', teamType='Individual', username='rqbln@icloud.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x2c7ac35e0; archive = "<IDEArchive: 0x600025a5d140>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x60009b278570>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x6000065b0b40; teamID='RUP46893UX', teamName='ROBIN LUCAS VIRGILE QUERIAUX', teamType='Individual', username='rqbln@icloud.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x2c1c91320; archive = "<IDEArchive: 0x600025a5d140>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x60009b278570>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x6000065b0b40; teamID='RUP46893UX', teamName='ROBIN LUCAS VIRGILE QUERIAUX', teamType='Individual', username='rqbln@icloud.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x2c1c6d3b0; archive = "<IDEArchive: 0x600025a5d140>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x60009b278570>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x6000065b0b40; teamID='RUP46893UX', teamName='ROBIN LUCAS VIRGILE QUERIAUX', teamType='Individual', username='rqbln@icloud.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x2d2ab42e0; archive = "<IDEArchive: 0x600025a5d140>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x60009b278570>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x6000065b0b40; teamID='RUP46893UX', teamName='ROBIN LUCAS VIRGILE QUERIAUX', teamType='Individual', username='rqbln@icloud.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x2c31cb6f0; archive = "<IDEArchive: 0x600025a5d140>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x60009b278570>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x6000065b0b40; teamID='RUP46893UX', teamName='ROBIN LUCAS VIRGILE QUERIAUX', teamType='Individual', username='rqbln@icloud.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x147fc5ee0; archive = "<IDEArchive: 0x600025a5d140>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x60009b278570>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x6000065b0b40; teamID='RUP46893UX', teamName='ROBIN LUCAS VIRGILE QUERIAUX', teamType='Individual', username='rqbln@icloud.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x2d1170ff0; archive = "<IDEArchive: 0x600025a5d140>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x60009b278570>", team="<IDEProvisioningDisambiguatableBasicTeam: 0x6000065b0b40; teamID='RUP46893UX', teamName='ROBIN LUCAS VIRGILE QUERIAUX', teamType='Individual', username='rqbln@icloud.com', isFreeProvisioningTeam='0'>">
+	<IDEDistributionContext: 0x2c398a120; archive = "<IDEArchive: 0x600025a5d140>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x60009b278570>", team="(null)">
+	<IDEDistributionContext: 0x2c7ac2330; archive = "<IDEArchive: 0x600025a5d140>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x60009b278570>", team="(null)">
+	<IDEDistributionContext: 0x2c7ac2110; archive = "<IDEArchive: 0x600025a5d140>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x60009b278570>", team="(null)">
+	<IDEDistributionContext: 0x2d2129a20; archive = "<IDEArchive: 0x600025a5d140>", distributionMethod="<IDEDistributionMethodDevelopmentSigned: 0x60009b278570>", team="(null)">
+	<IDEDistributionContext: 0x2d2165ad0; archive = "<IDEArchive: 0x600025a5d140>", distributionMethod="(null)", team="(null)">
+</IDEDistributionProcessingPipelineContext: 0x2d117b0f0>
+2023-06-07 13:35:52 +0000  Processing step: IDEDistributionCreateDestRootStep
+2023-06-07 13:35:52 +0000  Processing step: IDEDistributionCopyItemStep
+2023-06-07 13:35:52 +0000  Running /usr/bin/ditto '-V' '/Users/timothe/Library/Developer/Xcode/Archives/2023-06-07/TempoBot 07-06-2023 15.34.xcarchive/Products/Applications/TempoBot.app' '/var/folders/67/r198bzjd12q2ydwjxvrt6x8h0000gn/T/XcodeDistPipeline.~~~RJcbUr/Root/Payload/TempoBot.app'
+2023-06-07 13:35:52 +0000  >>> Copying /Users/timothe/Library/Developer/Xcode/Archives/2023-06-07/TempoBot 07-06-2023 15.34.xcarchive/Products/Applications/TempoBot.app 
+2023-06-07 13:35:52 +0000  copying file ./_CodeSignature/CodeResources ... 
+2023-06-07 13:35:52 +0000  3009 bytes for ./_CodeSignature/CodeResources
+2023-06-07 13:35:52 +0000  copying file ./AppIcon60x60@2x.png ... 
+2023-06-07 13:35:52 +0000  5959 bytes for ./AppIcon60x60@2x.png
+2023-06-07 13:35:52 +0000  copying file ./TempoBot ... 
+2023-06-07 13:35:52 +0000  8750576 bytes for ./TempoBot
+2023-06-07 13:35:52 +0000  copying file ./GoogleService-Info.plist ... 
+752 bytes for ./GoogleService-Info.plist
+copying file ./Assets.car ... 
+62751 bytes for ./Assets.car
+copying file ./AppIcon76x76@2x~ipad.png ... 
+7441 bytes for ./AppIcon76x76@2x~ipad.png
+copying file ./embedded.mobileprovision ... 
+2023-06-07 13:35:52 +0000  14397 bytes for ./embedded.mobileprovision
+2023-06-07 13:35:52 +0000  copying file ./Info.plist ... 
+2023-06-07 13:35:52 +0000  1419 bytes for ./Info.plist
+2023-06-07 13:35:52 +0000  copying file ./PkgInfo ... 
+2023-06-07 13:35:52 +0000  8 bytes for ./PkgInfo
+2023-06-07 13:35:52 +0000  /usr/bin/ditto exited with 0
+2023-06-07 13:35:52 +0000  Processing step: IDEDistributionEmbedProfileStep
+2023-06-07 13:35:52 +0000  Processing step: IDEDistributionInfoPlistStep
+2023-06-07 13:35:52 +0000  Skipping step: IDEDistributionInfoPlistStep because it said so
+2023-06-07 13:35:52 +0000  Processing step: IDEDistributionAppThinningPlistStep
+2023-06-07 13:35:52 +0000  Skipping step: IDEDistributionAppThinningPlistStep because it said so
+2023-06-07 13:35:52 +0000  Processing step: IDEDistributionCompileBitcodeStep
+2023-06-07 13:35:52 +0000  Skipping step: IDEDistributionCompileBitcodeStep because it said so
+2023-06-07 13:35:52 +0000  Processing step: IDEDistributionCodeSlimmingStep
+2023-06-07 13:35:52 +0000  Processing step: IDEDistributionCopyBCSymbolMapsStep
+2023-06-07 13:35:52 +0000  Skipping step: IDEDistributionCopyBCSymbolMapsStep because it said so
+2023-06-07 13:35:52 +0000  Processing step: IDEDistributionSymbolsStep
+2023-06-07 13:35:52 +0000  Skipping step: IDEDistributionSymbolsStep because it said so
+2023-06-07 13:35:52 +0000  Processing step: IDEDistributionAppThinningStep
+2023-06-07 13:35:52 +0000  Skipping step: IDEDistributionAppThinningStep because it said so
+2023-06-07 13:35:52 +0000  Processing step: IDEDistributionArchThinningStep
+2023-06-07 13:35:52 +0000  Running /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/lipo '/var/folders/67/r198bzjd12q2ydwjxvrt6x8h0000gn/T/XcodeDistPipeline.~~~RJcbUr/Root/Payload/TempoBot.app/TempoBot' '-verify_arch' 'arm64e'
+2023-06-07 13:35:52 +0000  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/lipo exited with 1
+2023-06-07 13:35:53 +0000  Skipping architecture thinning for item "TempoBot" because arch "arm64e" wasn't found
+2023-06-07 13:35:53 +0000  Processing step: IDEDistributionODRStep
+2023-06-07 13:35:53 +0000  Processing step: IDEDistributionStripXattrsStep
+2023-06-07 13:35:53 +0000  Running /usr/bin/xattr '-crs' '/var/folders/67/r198bzjd12q2ydwjxvrt6x8h0000gn/T/XcodeDistPipeline.~~~RJcbUr/Root/Payload/TempoBot.app'
+2023-06-07 13:35:53 +0000  /usr/bin/xattr exited with 0
+2023-06-07 13:35:53 +0000  Processing step: IDEDistributionCodesignStep
+2023-06-07 13:35:53 +0000  Entitlements for <IDEDistributionItem: 0x600035a2f900; bundleID='Gainder.TempoBot', path='<DVTFilePath:0x60000d994e70:'/Users/timothe/Library/Developer/Xcode/Archives/2023-06-07/TempoBot 07-06-2023 15.34.xcarchive/Products/Applications/TempoBot.app'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x6000c90df340; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x60001070a310; name='Apple Development: rqbln@icloud.com (HNMV4748T4)', hash='2A531B8683B859DBB14F650B08FEC0BE90099D18', serialNumber='3C46BC31D38A3BE5DD2E03C95167A670', certificateKinds='(
+    "1.2.840.113635.100.6.1.12",
+    "1.2.840.113635.100.6.1.2"
+), issueDate='2023-03-05 16:29:02 +0000''>', entitlements='{
+    "application-identifier" = "RUP46893UX.Gainder.TempoBot";
+    "com.apple.developer.team-identifier" = RUP46893UX;
+    "get-task-allow" = 1;
+}', teamID='RUP46893UX', identifier='Gainder.TempoBot', executablePath='<DVTFilePath:0x600011b15260:'/Users/timothe/Library/Developer/Xcode/Archives/2023-06-07/TempoBot 07-06-2023 15.34.xcarchive/Products/Applications/TempoBot.app/TempoBot'>', hardenedRuntime='0'>'>: {
+    "application-identifier" = "RUP46893UX.Gainder.TempoBot";
+    "com.apple.developer.team-identifier" = RUP46893UX;
+    "get-task-allow" = 1;
+}
+2023-06-07 13:35:53 +0000  Entitlements for <IDEDistributionItem: 0x600035a2f900; bundleID='Gainder.TempoBot', path='<DVTFilePath:0x60000d994e70:'/Users/timothe/Library/Developer/Xcode/Archives/2023-06-07/TempoBot 07-06-2023 15.34.xcarchive/Products/Applications/TempoBot.app'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x6000c90df340; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x60000c40ee10; name='Apple Development: rqbln@icloud.com (HNMV4748T4)', hash='2A531B8683B859DBB14F650B08FEC0BE90099D18', serialNumber='3C46BC31D38A3BE5DD2E03C95167A670', certificateKinds='(
+    "1.2.840.113635.100.6.1.12",
+    "1.2.840.113635.100.6.1.2"
+), issueDate='2023-03-05 16:29:02 +0000''>', entitlements='{
+    "application-identifier" = "RUP46893UX.Gainder.TempoBot";
+    "com.apple.developer.team-identifier" = RUP46893UX;
+    "get-task-allow" = 1;
+}', teamID='RUP46893UX', identifier='Gainder.TempoBot', executablePath='<DVTFilePath:0x600011b15260:'/Users/timothe/Library/Developer/Xcode/Archives/2023-06-07/TempoBot 07-06-2023 15.34.xcarchive/Products/Applications/TempoBot.app/TempoBot'>', hardenedRuntime='0'>'> are: {
+    "application-identifier" = "RUP46893UX.Gainder.TempoBot";
+    "com.apple.developer.team-identifier" = RUP46893UX;
+    "get-task-allow" = 1;
+}
+2023-06-07 13:35:53 +0000  Writing entitlements for <IDEDistributionItem: 0x600035a2f900; bundleID='Gainder.TempoBot', path='<DVTFilePath:0x60000d994e70:'/Users/timothe/Library/Developer/Xcode/Archives/2023-06-07/TempoBot 07-06-2023 15.34.xcarchive/Products/Applications/TempoBot.app'>', codeSigningInfo='<_DVTCodeSigningInformation_Path: 0x6000c90df340; isSigned='1', isAdHocSigned='0', signingCertificate='<DVTSigningCertificate: 0x60000c40f0d0; name='Apple Development: rqbln@icloud.com (HNMV4748T4)', hash='2A531B8683B859DBB14F650B08FEC0BE90099D18', serialNumber='3C46BC31D38A3BE5DD2E03C95167A670', certificateKinds='(
+    "1.2.840.113635.100.6.1.12",
+    "1.2.840.113635.100.6.1.2"
+), issueDate='2023-03-05 16:29:02 +0000''>', entitlements='{
+    "application-identifier" = "RUP46893UX.Gainder.TempoBot";
+    "com.apple.developer.team-identifier" = RUP46893UX;
+    "get-task-allow" = 1;
+}', teamID='RUP46893UX', identifier='Gainder.TempoBot', executablePath='<DVTFilePath:0x600011b15260:'/Users/timothe/Library/Developer/Xcode/Archives/2023-06-07/TempoBot 07-06-2023 15.34.xcarchive/Products/Applications/TempoBot.app/TempoBot'>', hardenedRuntime='0'>'> to: /var/folders/67/r198bzjd12q2ydwjxvrt6x8h0000gn/T/XcodeDistPipeline.~~~RJcbUr/entitlements~~~En9pud
+2023-06-07 13:35:53 +0000  Running /usr/bin/codesign '-vvv' '--force' '--sign' '2A531B8683B859DBB14F650B08FEC0BE90099D18' '--entitlements' '/var/folders/67/r198bzjd12q2ydwjxvrt6x8h0000gn/T/XcodeDistPipeline.~~~RJcbUr/entitlements~~~En9pud' '--generate-entitlement-der' '--preserve-metadata=identifier,flags,runtime' '/var/folders/67/r198bzjd12q2ydwjxvrt6x8h0000gn/T/XcodeDistPipeline.~~~RJcbUr/Root/Payload/TempoBot.app'
+2023-06-07 13:35:53 +0000  /var/folders/67/r198bzjd12q2ydwjxvrt6x8h0000gn/T/XcodeDistPipeline.~~~RJcbUr/Root/Payload/TempoBot.app: replacing existing signature
+2023-06-07 13:35:53 +0000  /var/folders/67/r198bzjd12q2ydwjxvrt6x8h0000gn/T/XcodeDistPipeline.~~~RJcbUr/Root/Payload/TempoBot.app: signed app bundle with Mach-O thin (arm64) [Gainder.TempoBot]
+2023-06-07 13:35:53 +0000  /usr/bin/codesign exited with 0
+2023-06-07 13:35:53 +0000  Processing step: IDEDistributionZipODRItemStep
+2023-06-07 13:35:53 +0000  Skipping step: IDEDistributionZipODRItemStep because it said so
+2023-06-07 13:35:53 +0000  Processing step: IDEDistributionCreateIPAStep
+2023-06-07 13:35:53 +0000  Running /usr/bin/ditto '-V' '-c' '-k' '--norsrc' '/var/folders/67/r198bzjd12q2ydwjxvrt6x8h0000gn/T/XcodeDistPipeline.~~~RJcbUr/Root' '/var/folders/67/r198bzjd12q2ydwjxvrt6x8h0000gn/T/XcodeDistPipeline.~~~RJcbUr/Packages/TempoBot.ipa'
+2023-06-07 13:35:53 +0000  >>> Copying /var/folders/67/r198bzjd12q2ydwjxvrt6x8h0000gn/T/XcodeDistPipeline.~~~RJcbUr/Root 
+2023-06-07 13:35:53 +0000  copying file ./Payload/TempoBot.app/_CodeSignature/CodeResources ... 
+2023-06-07 13:35:53 +0000  3009 bytes for ./Payload/TempoBot.app/_CodeSignature/CodeResources
+2023-06-07 13:35:53 +0000  copying file ./Payload/TempoBot.app/AppIcon60x60@2x.png ... 
+2023-06-07 13:35:53 +0000  5959 bytes for ./Payload/TempoBot.app/AppIcon60x60@2x.png
+2023-06-07 13:35:53 +0000  copying file ./Payload/TempoBot.app/TempoBot ... 
+2023-06-07 13:35:53 +0000  8750576 bytes for ./Payload/TempoBot.app/TempoBot
+copying file ./Payload/TempoBot.app/GoogleService-Info.plist ... 
+2023-06-07 13:35:53 +0000  752 bytes for ./Payload/TempoBot.app/GoogleService-Info.plist
+copying file ./Payload/TempoBot.app/Assets.car ... 
+2023-06-07 13:35:53 +0000  62751 bytes for ./Payload/TempoBot.app/Assets.car
+copying file ./Payload/TempoBot.app/AppIcon76x76@2x~ipad.png ... 
+2023-06-07 13:35:53 +0000  7441 bytes for ./Payload/TempoBot.app/AppIcon76x76@2x~ipad.png
+copying file ./Payload/TempoBot.app/embedded.mobileprovision ... 
+2023-06-07 13:35:53 +0000  14397 bytes for ./Payload/TempoBot.app/embedded.mobileprovision
+copying file ./Payload/TempoBot.app/Info.plist ... 
+2023-06-07 13:35:53 +0000  1419 bytes for ./Payload/TempoBot.app/Info.plist
+copying file ./Payload/TempoBot.app/PkgInfo ... 
+2023-06-07 13:35:53 +0000  8 bytes for ./Payload/TempoBot.app/PkgInfo
+2023-06-07 13:35:53 +0000  /usr/bin/ditto exited with 0
+2023-06-07 13:35:53 +0000  Processing step: IDEDistributionAppStoreInformationStep
+2023-06-07 13:35:53 +0000  Skipping step: IDEDistributionAppStoreInformationStep because it said so
+2023-06-07 13:35:53 +0000  Processing step: IDEDistributionGenerateProcessedDistributionItems
+2023-06-07 13:35:53 +0000  IDEDistributionItem init <DVTFilePath:0x60000d90b950:'/var/folders/67/r198bzjd12q2ydwjxvrt6x8h0000gn/T/XcodeDistPipeline.~~~RJcbUr/Root/Payload/TempoBot.app'>
+2023-06-07 13:35:53 +0000  Processing step: IDEDistributionCreateManifestStep

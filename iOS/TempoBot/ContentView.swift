@@ -8,16 +8,27 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject var datas = ReadDatas()
+    @EnvironmentObject var datas : ReadDatas
+    
+
     var body: some View {
-        MainPage().environmentObject(datas)
+        ZStack{
+            if !datas.UserIsLoggedIn {
+                Login().environmentObject(ReadDatas())
+                
+            }else{
+                MainPage().environmentObject(ReadDatas())
+            }
+            NoConnectionAlertView()
+        }
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
-    @StateObject static var previewDatas = ReadDatas()
     static var previews: some View {
-        ContentView().environmentObject(previewDatas)
+        ContentView()
+            .environmentObject(ReadDatas())
+            .environmentObject(NetworkMonitor())
+            
     }
 }
-
