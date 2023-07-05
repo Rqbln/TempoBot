@@ -96,9 +96,6 @@ def recup_val_statutJ():
         return None, None
 
 
-
-
-
 def process_user_data(users_data, previous_data):
     # Vérifier s'il y a des utilisateurs
     valeur = True
@@ -122,6 +119,8 @@ def process_user_data(users_data, previous_data):
                         # Parcourir toutes les prises de l'utilisateur
                         for prise_id, prise_data in prises.items():
 
+
+
                             print("Prise:", prise_id)
 
                             if prise_data.get('isManualOn') is None:
@@ -138,7 +137,6 @@ def process_user_data(users_data, previous_data):
 
                                 for jour in jours_semaine:
                                     valeur_jour = prise_data.get(jour)
-
 
                                     if jour_actuel == jour and valeur_jour is not None:
 
@@ -158,12 +156,10 @@ def process_user_data(users_data, previous_data):
                                             subprocess.run(commande_allumer, shell=True)
                                             condition_satisfaite = True
 
-                                        else :
+                                        else:
                                             commande_allumer = f'mosquitto_pub -d -t cmnd/{prise_id}/power -m "0"'
                                             subprocess.run(commande_allumer, shell=True)
                                             condition_satisfaite = True
-
-
 
                                 if not condition_satisfaite:
 
@@ -205,7 +201,6 @@ def process_user_data(users_data, previous_data):
                                 print("Il est maintenant l'heure d'allumage. Envoi de la commande...")
 
                                 commande_allumer = f'mosquitto_pub -d -t cmnd/{prise_id}/power -m "1"'
-
                                 subprocess.run(commande_allumer, shell=True)
 
                                 heure_allumage = prise_data.get('isManualOn')
@@ -366,13 +361,14 @@ async def main_loop():
 
         except Exception as e:
             print(f"Une exception s'est produite : {e}")
-            await send_notification(f"Une exception s'est produite : {e}")
+            #await send_notification(f"Une exception s'est produite : {e}")
             crash_count += 1
             await asyncio.sleep(2)
     else:
         print("Le code a crashé", MAX_CRASH_COUNT, "fois d'affilée. Arrêt du programme.")
         await send_notification(f"Le code a crashé {MAX_CRASH_COUNT} fois d'affilée. Arrêt du programme.")
         await sys.exit()
+
 
 
 # Définition de l'événement 'on_ready'
