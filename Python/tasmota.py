@@ -30,8 +30,26 @@ command_off = "Power%20off"
 
 def jours_restants():
     url_Jrestants = "https://particulier.edf.fr/services/rest/referentiel/getNbTempoDays?TypeAlerte=TEMPO"
-    Jrestants = requests.get(url_Jrestants).json()
-    return Jrestants["PARAM_NB_J_BLEU"], Jrestants["PARAM_NB_J_BLANC"], Jrestants["PARAM_NB_J_ROUGE"]
+
+    try:
+        response = requests.get(url_Jrestants)
+        response.raise_for_status()  # Vérifier si la requête a réussi
+        data = response.json()
+
+        # Vérifier si les clés nécessaires sont présentes dans la réponse JSON
+        if "PARAM_NB_J_BLEU" in data and "PARAM_NB_J_BLANC" in data and "PARAM_NB_J_ROUGE" in data:
+            return data["PARAM_NB_J_BLEU"], data["PARAM_NB_J_BLANC"], data["PARAM_NB_J_ROUGE"]
+        else:
+            print("Clés manquantes dans la réponse JSON :", data)
+            return None, None, None
+
+    except requests.exceptions.RequestException as e:
+        print("Une erreur s'est produite lors de la requête HTTP :", str(e))
+        return None, None, None
+
+    except ValueError as e:
+        print("Une erreur s'est produite lors de la lecture de la réponse JSON :", str(e))
+        return None, None, None
 
 
 def jour_semaine_fr(date):
@@ -48,17 +66,27 @@ def jour_semaine_fr(date):
 
 
 def get_tempo_color():
-    now = time.localtime()
-    url = f"https://particulier.edf.fr/services/rest/referentiel/searchTempoStore?dateRelevant={now.tm_year}-{now.tm_mon}-{now.tm_mday}"
-    response = requests.get(url).json()
-    return response["couleurJourJ"]
+    try:
+        now = time.localtime()
+        url = f"https://particulier.edf.fr/services/rest/referentiel/searchTempoStore?dateRelevant={now.tm_year}-{now.tm_mon}-{now.tm_mday}"
+        response = requests.get(url).json()
+        return response["couleurJourJ"]
+    except (requests.exceptions.RequestException, KeyError) as e:
+        print("Une exception s'est produite lors de la récupération de la couleur Tempo :", str(e))
+        # Gérer l'erreur ou effectuer une action spécifique en cas d'échec
+        return None
 
 
 def get_tempo_colorJ1():
-    now = time.localtime()
-    url = f"https://particulier.edf.fr/services/rest/referentiel/searchTempoStore?dateRelevant={now.tm_year}-{now.tm_mon}-{now.tm_mday}"
-    response = requests.get(url).json()
-    return response["couleurJourJ1"]
+    try:
+        now = time.localtime()
+        url = f"https://particulier.edf.fr/services/rest/referentiel/searchTempoStore?dateRelevant={now.tm_year}-{now.tm_mon}-{now.tm_mday}"
+        response = requests.get(url).json()
+        return response["couleurJourJ1"]
+    except (requests.exceptions.RequestException, KeyError) as e:
+        print("Une exception s'est produite lors de la récupération de la couleur Tempo pour J+1 :", str(e))
+        # Gérer l'erreur ou effectuer une action spécifique en cas d'échec
+        return None
 
 
 def heure_creux_plein():
@@ -277,7 +305,7 @@ def main():
     heures_blanches = [[0, 0], [0, 0]]
     heures_bleues = [[0, 0], [0, 0]]
     heures = None
-    os.system("clear")
+    #os.system("clear")
 
     Jrestants_BLEU, Jrestants_BLANC, Jrestants_ROUGE = jours_restants()
     print("\nIl reste", Jrestants_BLEU, "jours bleus")
@@ -285,7 +313,7 @@ def main():
     print("Il reste", Jrestants_ROUGE, "jours rouges")
 
     while True:
-        os.system("clear")
+        #os.system("clear")
         color = get_tempo_color()
         colorJ1 = get_tempo_colorJ1()
         if color == "TEMPO_ROUGE":
@@ -324,7 +352,7 @@ def main():
         }
         ref.update(data)
 
-        os.system("clear")
+        #os.system("clear")
 
         # Dans la fonction main():
         ref = db.reference('/data/users')
@@ -361,13 +389,14 @@ async def main_loop():
 
         except Exception as e:
             print(f"Une exception s'est produite : {e}")
-            #await send_notification(f"Une exception s'est produite : {e}")
+            await send_notification(f"Une exception s'est produite : {e}")
             crash_count += 1
             await asyncio.sleep(2)
     else:
         print("Le code a crashé", MAX_CRASH_COUNT, "fois d'affilée. Arrêt du programme.")
         await send_notification(f"Le code a crashé {MAX_CRASH_COUNT} fois d'affilée. Arrêt du programme.")
         await sys.exit()
+
 
 
 
