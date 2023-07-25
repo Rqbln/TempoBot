@@ -30,26 +30,32 @@ command_off = "Power%20off"
 
 def jours_restants():
     url_Jrestants = "https://particulier.edf.fr/services/rest/referentiel/getNbTempoDays?TypeAlerte=TEMPO"
+    max_retries = 3  # Nombre maximum de tentatives en cas d'échec de requête
+    retry_delay = 2  # Délai en secondes entre les tentatives
 
-    try:
-        response = requests.get(url_Jrestants)
-        response.raise_for_status()  # Vérifier si la requête a réussi
-        data = response.json()
+    for _ in range(max_retries):
+        try:
+            response = requests.get(url_Jrestants, timeout=5)  # Ajouter un délai d'attente de 5 secondes
+            response.raise_for_status()  # Vérifier si la requête a réussi
+            data = response.json()
 
-        # Vérifier si les clés nécessaires sont présentes dans la réponse JSON
-        if "PARAM_NB_J_BLEU" in data and "PARAM_NB_J_BLANC" in data and "PARAM_NB_J_ROUGE" in data:
-            return data["PARAM_NB_J_BLEU"], data["PARAM_NB_J_BLANC"], data["PARAM_NB_J_ROUGE"]
-        else:
-            print("Clés manquantes dans la réponse JSON :", data)
+            # Vérifier si les clés nécessaires sont présentes dans la réponse JSON
+            if "PARAM_NB_J_BLEU" in data and "PARAM_NB_J_BLANC" in data and "PARAM_NB_J_ROUGE" in data:
+                return data["PARAM_NB_J_BLEU"], data["PARAM_NB_J_BLANC"], data["PARAM_NB_J_ROUGE"]
+            else:
+                print("Clés manquantes dans la réponse JSON :", data)
+                return None, None, None
+
+        except requests.exceptions.RequestException as e:
+            print("Une erreur s'est produite lors de la requête HTTP :", str(e))
+            time.sleep(retry_delay)  # Attendre avant de réessayer
+
+        except ValueError as e:
+            print("Une erreur s'est produite lors de la lecture de la réponse JSON :", str(e))
             return None, None, None
 
-    except requests.exceptions.RequestException as e:
-        print("Une erreur s'est produite lors de la requête HTTP :", str(e))
-        return None, None, None
-
-    except ValueError as e:
-        print("Une erreur s'est produite lors de la lecture de la réponse JSON :", str(e))
-        return None, None, None
+    print("Impossible de récupérer les données après plusieurs tentatives.")
+    return None, None, None
 
 
 def jour_semaine_fr(date):
