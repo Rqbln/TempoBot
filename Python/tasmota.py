@@ -377,16 +377,15 @@ async def send_notification(message):
     else:
         print(f"Channel with ID {channel_id} not found.")
 
-
+class MaxCrashesReached(Exception):
+    pass
 async def main_loop():
     previous_data = {}
     crash_count = 0  # Compteur de crashes
     MAX_CRASH_COUNT = 5
     while crash_count < MAX_CRASH_COUNT:
-
         try:
             await main()
-
         except Exception as e:
             print(f"Une exception s'est produite : {e}")
             await send_notification(f"Une exception s'est produite : {e}")
@@ -395,9 +394,8 @@ async def main_loop():
     else:
         print("Le code a crashé", MAX_CRASH_COUNT, "fois d'affilée. Arrêt du programme.")
         await send_notification(f"Le code a crashé {MAX_CRASH_COUNT} fois d'affilée. Arrêt du programme.")
-        await sys.exit()
-
-
+        # Vous n'avez pas besoin de sys.exit() ici, vous pouvez simplement sortir de la boucle.
+        raise MaxCrashesReached
 
 
 # Définition de l'événement 'on_ready'
@@ -421,6 +419,8 @@ if __name__ == "__main__":
     while crash_count < MAX_CRASH_COUNT:
         try:
             asyncio.run(bot_start())
+        except MaxCrashesReached:
+            break
         except Exception as e:
             print("Une exception s'est produite :", str(e))
             print("Redémarrage du code...")
