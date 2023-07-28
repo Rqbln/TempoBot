@@ -76,8 +76,15 @@ def get_tempo_color():
         now = time.localtime()
         url = f"https://particulier.edf.fr/services/rest/referentiel/searchTempoStore?dateRelevant={now.tm_year}-{now.tm_mon}-{now.tm_mday}"
         response = requests.get(url).json()
-        return response["couleurJourJ"]
-    except (requests.exceptions.RequestException, KeyError) as e:
+
+        # Vérifier si la clé "couleurJourJ" est présente dans la réponse JSON
+        if "couleurJourJ" in response:
+            return response["couleurJourJ"]
+        else:
+            print("Clé 'couleurJourJ' manquante dans la réponse JSON :", response)
+            return None
+
+    except (requests.exceptions.RequestException, ValueError, KeyError) as e:
         print("Une exception s'est produite lors de la récupération de la couleur Tempo :", str(e))
         # Gérer l'erreur ou effectuer une action spécifique en cas d'échec
         return None
@@ -88,8 +95,15 @@ def get_tempo_colorJ1():
         now = time.localtime()
         url = f"https://particulier.edf.fr/services/rest/referentiel/searchTempoStore?dateRelevant={now.tm_year}-{now.tm_mon}-{now.tm_mday}"
         response = requests.get(url).json()
-        return response["couleurJourJ1"]
-    except (requests.exceptions.RequestException, KeyError) as e:
+
+        # Vérifier si la clé "couleurJourJ1" est présente dans la réponse JSON
+        if "couleurJourJ1" in response:
+            return response["couleurJourJ1"]
+        else:
+            print("Clé 'couleurJourJ1' manquante dans la réponse JSON :", response)
+            return None
+
+    except (requests.exceptions.RequestException, ValueError, KeyError) as e:
         print("Une exception s'est produite lors de la récupération de la couleur Tempo pour J+1 :", str(e))
         # Gérer l'erreur ou effectuer une action spécifique en cas d'échec
         return None
