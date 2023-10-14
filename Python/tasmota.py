@@ -120,7 +120,7 @@ def heure_creux_plein():
 def wait_for_new_day():
     while True:
         color = get_tempo_color()
-        if color != "TEMPO_BLANC" and color != "TEMPO_BLEU" and color != "TEMPO_ROUGE":
+        if color not in ("TEMPO_BLANC", "TEMPO_BLEU", "TEMPO_ROUGE"):
             time.sleep(60)
         else:
             break
