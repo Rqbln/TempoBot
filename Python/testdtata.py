@@ -40,7 +40,7 @@ while True :
 
     # récupérer les données
     data = ref.get()
-    if data==True :
+    if data is True :
         set_power("ON")
     else :
         set_power("OFF")

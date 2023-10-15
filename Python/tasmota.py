@@ -120,7 +120,7 @@ def heure_creux_plein():
 def wait_for_new_day():
     while True:
         color = get_tempo_color()
-        if color != "TEMPO_BLANC" and color != "TEMPO_BLEU" and color != "TEMPO_ROUGE":
+        if color not in ("TEMPO_BLANC", "TEMPO_BLEU", "TEMPO_ROUGE"):
             time.sleep(60)
         else:
             break
@@ -411,11 +411,11 @@ async def main_loop():
             await send_notification(f"Une exception s'est produite : {e}")
             crash_count += 1
             await asyncio.sleep(2)
-    else:
-        print("Le code a crashé", MAX_CRASH_COUNT, "fois d'affilée. Arrêt du programme.")
-        await send_notification(f"Le code a crashé {MAX_CRASH_COUNT} fois d'affilée. Arrêt du programme.")
-        # Vous n'avez pas besoin de sys.exit() ici, vous pouvez simplement sortir de la boucle.
-        raise MaxCrashesReached
+    
+    print("Le code a crashé", MAX_CRASH_COUNT, "fois d'affilée. Arrêt du programme.")
+    await send_notification(f"Le code a crashé {MAX_CRASH_COUNT} fois d'affilée. Arrêt du programme.")
+    # Vous n'avez pas besoin de sys.exit() ici, vous pouvez simplement sortir de la boucle.
+    raise MaxCrashesReached
 
 
 # Définition de l'événement 'on_ready'
